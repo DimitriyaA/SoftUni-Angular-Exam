@@ -1,0 +1,65 @@
+<div class="container">
+  <div class="new-game-border">
+    <div class="header-background">
+      <span>New Game</span>
+    </div>
+    <form>
+      <!-- Game Name -->
+      <div class="new-game-title">
+        <label for="gameName">Game Name <span class="red">*</span></label>
+        <input type="text" name="gameName" id="gameName" #inputGameName required />
+      </div>
+
+      <!-- Description -->
+      <div class="new-game-description">
+        <label for="gameDescription">Description <span class="red">*</span></label>
+        <textarea name="gameDescription" id="gameDescription" rows="5" class="height" #inputGameDescription
+          required></textarea>
+      </div>
+
+      <!-- Picture -->
+      <div class="new-game-picture">
+        <label for="gamePicture">Picture URL <span class="red">*</span></label>
+        <input type="url" name="gamePicture" id="gamePicture" #inputGamePicture required />
+      </div>
+
+      <!-- Condition -->
+      <div class="new-game-condition">
+        <label for="gameCondition">Condition <span class="red">*</span></label>
+        <select name="gameCondition" id="gameCondition" #inputGameCondition required>
+          <option value="" disabled selected>Select condition</option>
+          <option value="new">New</option>
+          <option value="used-good">Used (Good)</option>
+          <option value="used-fair">Used (Fair)</option>
+        </select>
+      </div>
+
+      <!-- Category -->
+      <div class="new-game-category">
+        <label for="gameCategory">Category <span class="red">*</span></label>
+        <select name="gameCategory" id="gameCategory" #inputGameCategory required>
+          <option value="" disabled selected>Select category</option>
+          <option value="childrens">Children's Games</option>
+          <option value="card">Card Games</option>
+          <option value="adventure">Adventure Games</option>
+          <option value="family">Family Games</option>
+        </select>
+      </div>
+
+      <!-- Price -->
+      <div class="new-game-price">
+        <label for="gamePrice">Price ($) <span class="red">*</span></label>
+        <input type="number" name="gamePrice" id="gamePrice" step="0.01" min="0" #inputGamePrice required />
+      </div>
+
+      <!-- Form Buttons -->
+      <div class="new-game-buttons">
+        <button class="cancel" type="button">Cancel</button>
+        <button class="public" type="submit"
+          (click)="addGame($event, inputGameName.value, inputGameDescription.value, inputGamePicture.value, inputGameCondition.value, inputGameCategory.value, inputGamePrice.value)">
+          Add Game
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

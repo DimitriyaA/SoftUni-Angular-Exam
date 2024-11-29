@@ -1,0 +1,31 @@
+<main>
+  <!-- Loader -->
+  <app-loader *ngIf="isLoading"></app-loader>
+
+  <!-- Main Content -->
+  <div *ngIf="!isLoading" class="content-container">
+    <!-- Left Column: Categories -->
+    <div class="categories-column">
+      <h3>Categories</h3>
+      <ul>
+        <li *ngFor="let category of categories" class="category-button" [class.active]="currentCategory === category"
+          (click)="filterByCategory(category)">
+          {{ category }}
+        </li>
+      </ul>
+    </div>
+
+    <!-- Right Column: Games -->
+    <div class="games-display-column">
+      <h3 *ngIf="!currentCategory">Last 5 Added Games</h3>
+      <h3 *ngIf="currentCategory">Last 5 Games in "{{ currentCategory }}"</h3>
+      <div *ngFor="let game of displayedGames" class="game-summary">
+        <img [src]="game.picture" alt="{{ game.name }}" class="summary-image" />
+        <div class="summary-details">
+          <h4 class="game-name">{{ game.name }}</h4>
+          <p class="game-description">{{ game.description | slice:0:50 }}...</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>

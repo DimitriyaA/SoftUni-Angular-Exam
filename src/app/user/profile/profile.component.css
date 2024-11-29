@@ -1,0 +1,129 @@
+/* General Container */
+.container {
+  background-color: #4b3a60;
+  /* Match the login and register form background */
+  color: #fff;
+  /* Text color consistent with the login form */
+  width: 100%;
+  /* Full width */
+  padding: 2em 1em;
+  /* Reduced spacing around the content */
+  display: flex;
+  /* Center profile content horizontally and vertically */
+  justify-content: center;
+  align-items: center;
+  min-height: calc(100vh - 8em);
+  /* Adjusts for the header and footer spacing */
+  font-family: 'Poppins', sans-serif;
+  /* Consistent font */
+}
+
+/* Profile Container */
+.profile {
+  background-color: white;
+  /* White background for contrast */
+  color: #4b3a60;
+  /* Text color matching header/footer */
+  width: 100%;
+  max-width: 500px;
+  /* Center and limit width */
+  padding: 2em;
+  border-radius: 10px;
+  /* Rounded corners */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  /* Subtle shadow for depth */
+  text-align: center;
+  /* Center align content */
+}
+
+/* Profile Image */
+.profile img {
+  width: 100px;
+  /* Set image width */
+  height: 100px;
+  /* Set image height */
+  border-radius: 50%;
+  /* Circular profile picture */
+  margin-bottom: 1em;
+  /* Add spacing below the image */
+}
+
+/* Profile Info Section */
+.profile h3 {
+  font-size: 1.8em;
+  /* Large heading */
+  font-weight: 600;
+  /* Bold font */
+  margin-bottom: 1.5em;
+  /* Add spacing below the heading */
+}
+
+/* Profile Details */
+.profile .flex {
+  display: flex;
+  justify-content: space-between;
+  /* Space between label and value */
+  margin-bottom: 1em;
+  /* Add spacing between rows */
+}
+
+.profile .flex p {
+  font-size: 1.1em;
+  /* Consistent font size */
+}
+
+/* Edit Button */
+.edit-button {
+  background-color: #ffc107;
+  /* Match button style from login */
+  color: #4b3a60;
+  /* Text color matching home buttons */
+  border: none;
+  /* Remove border */
+  border-radius: 5px;
+  /* Rounded corners */
+  padding: 0.8em 1.5em;
+  /* Add padding for size */
+  font-size: 1.2em;
+  /* Slightly larger font size */
+  font-weight: 600;
+  /* Bold text for emphasis */
+  cursor: pointer;
+  /* Pointer cursor on hover */
+  transition: background-color 0.3s, transform 0.2s;
+  /* Smooth hover effects */
+}
+
+.edit-button:hover {
+  background-color: #fff;
+  /* Lighten background on hover */
+  color: #4b3a60;
+  /* Match text color to header/footer */
+  transform: scale(1.05);
+  /* Slightly enlarge on hover */
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .profile {
+    padding: 1.5em;
+    /* Reduce padding on smaller screens */
+  }
+
+  .profile h3 {
+    font-size: 1.5em;
+    /* Adjust heading size */
+  }
+
+  .profile .flex p {
+    font-size: 1em;
+    /* Adjust text size */
+  }
+
+  .edit-button {
+    font-size: 1em;
+    /* Adjust button size */
+    padding: 0.7em 1em;
+    /* Adjust padding */
+  }
+}

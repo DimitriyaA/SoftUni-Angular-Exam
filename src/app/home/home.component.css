@@ -1,0 +1,137 @@
+/* welcome component */
+
+#categories,
+#catalog {
+  background-color: white;
+}
+
+.welcome {
+  padding: 0.5em 1em;
+  border: 1px solid #999;
+  font-size: 0.9em;
+  background-color: #4b3a60;
+  /* Matches body background */
+}
+
+.welcome h3 {
+  background-color: white;
+  color: white;
+  text-shadow: 1px 1px rgb(43, 42, 42);
+  border-radius: 0.5em;
+  width: 100%;
+  padding: 0.5em 1.2em;
+  text-align: center;
+}
+
+.welcome p {
+  padding: 1em;
+  border-bottom: 1px solid #999;
+  font-style: italic;
+  color: white;
+  /* Darker text for readability */
+}
+
+.welcome a {
+  color: white;
+  text-decoration: none;
+  background-color: #4b3a60;
+  border: none;
+  border-radius: 0.5em;
+  padding: 0.5em 2em;
+  margin: 1em;
+  display: inline-block;
+  text-align: center;
+  text-shadow: 1px 1px rgb(87, 86, 86);
+  transition: transform 0.3s ease;
+}
+
+.welcome a:hover {
+  cursor: pointer;
+  transform: scale(1.05);
+}
+
+.welcome ul {
+  display: flex;
+  background-color: white;
+  justify-content: space-evenly;
+  padding: 0;
+  margin: 1.5em 0;
+}
+
+.welcome li {
+  list-style: none;
+  font-size: 1em;
+  color: #234465;
+}
+
+/* Hero Section */
+#hero {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 2em;
+  width: 100%;
+  padding: 4em 0;
+  color: #4b3a60;
+  background-color: white;
+}
+
+.hero-text {
+  text-align: center;
+  max-width: 40%;
+}
+
+#hero h1 {
+  font-size: 2.5em;
+  margin-bottom: 0.5em;
+}
+
+#hero p {
+  font-size: 1.2em;
+  color: #666;
+}
+
+.hero-image {
+  width: 40%;
+  max-width: 500px;
+  border-radius: 10px;
+  opacity: 0.9;
+}
+
+/* Category and Game Layouts */
+.category-grid,
+.game-grid {
+  display: flex;
+  width: 100%;
+  gap: 1em;
+  flex-wrap: wrap;
+  justify-content: center;
+  padding: 0 10px;
+}
+
+.line {
+  background-color: #4b3a60;
+  width: 100%;
+  height: 4px;
+  margin-bottom: 5px;
+}
+
+.category-card,
+.game-card {
+  flex: 1 1 200px;
+  background-color: #4b3a60;
+  color: #fff;
+  padding: 1em;
+  text-align: center;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.category-card:hover,
+.game-card:hover {
+  background-color: #ffc107;
+  color: #333;
+}
