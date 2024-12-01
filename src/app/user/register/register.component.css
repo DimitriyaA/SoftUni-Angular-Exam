@@ -38,7 +38,6 @@ form.register {
 form.register fieldset {
   border: none;
   /* Remove default border */
-  padding: 0;
 }
 
 /* Heading */
@@ -102,6 +101,7 @@ form.register .field-icon label {
   /* Center icon vertically */
   color: #4b3a60;
   /* Icon color */
+
 }
 
 form.register .field-icon label span {
@@ -160,6 +160,10 @@ form.register p.text-center a {
 form.register p.text-center a:hover {
   color: #fff;
   /* Lighten on hover */
+}
+
+select#select-tel {
+  margin-right: 1.5em;
 }
 
 /* Responsive Design */

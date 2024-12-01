@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { LoaderComponent } from '../../shared/loader/loader.component';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-categories-list',
@@ -25,9 +26,21 @@ export class CategoriesListComponent implements OnInit {
   ];
   categories = ['Children\'s Games', 'Card Games', 'Adventure Games', 'Family Games', 'Strategy Games'];
 
+  constructor(private router: Router, private route: ActivatedRoute) { }
+
   ngOnInit() {
     this.loadLastFiveGames(); // Show the last 5 games initially
     this.simulateLoading(); // Simulate loader
+
+    // Check for the category parameter from the URL on load
+    this.route.queryParams.subscribe(params => {
+      const categoryFromUrl = params['category'];
+      if (categoryFromUrl) {
+        // Replace "-" back to " " to get the correct category
+        const formattedCategory = categoryFromUrl.replace(/-/g, ' ');
+        this.filterByCategory(formattedCategory); // Filter games by category from URL
+      }
+    });
   }
 
   loadLastFiveGames(): void {
@@ -40,6 +53,16 @@ export class CategoriesListComponent implements OnInit {
       .filter(game => game.category === category)
       .slice(-5); // Get the last 5 games in this category
     this.currentCategory = category; // Update the selected category
+
+    // Replace spaces with "-" for better URL formatting
+    const formattedCategory = category.replace(/\s+/g, '-');
+
+    // Update the URL with the selected category using queryParams
+    this.router.navigate([], {
+      relativeTo: this.route,
+      queryParams: { category: formattedCategory },
+      queryParamsHandling: 'merge', // Merge with existing query params
+    });
   }
 
   simulateLoading(): void {

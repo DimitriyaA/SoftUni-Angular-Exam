@@ -11,6 +11,7 @@
   font-size: 0.9em;
   background-color: #4b3a60;
   /* Matches body background */
+  padding: 1.5em;
 }
 
 .welcome h3 {
@@ -74,6 +75,8 @@
   padding: 4em 0;
   color: #4b3a60;
   background-color: white;
+  margin-bottom: 1.5em;
+  ;
 }
 
 .hero-text {
@@ -98,9 +101,12 @@
   opacity: 0.9;
 }
 
+section#categories {
+  padding: 1.5em;
+}
+
 /* Category and Game Layouts */
-.category-grid,
-.game-grid {
+.category-grid {
   display: flex;
   width: 100%;
   gap: 1em;
@@ -116,9 +122,7 @@
   margin-bottom: 5px;
 }
 
-.category-card,
-.game-card {
-  flex: 1 1 200px;
+.category-card {
   background-color: #4b3a60;
   color: #fff;
   padding: 1em;
@@ -130,8 +134,7 @@
   transition: background-color 0.3s;
 }
 
-.category-card:hover,
-.game-card:hover {
+.category-card:hover {
   background-color: #ffc107;
   color: #333;
 }

@@ -32,6 +32,7 @@ export const routes: Routes = [
     ],
   },
   { path: 'add-game', component: AddGameComponent },
+
   { path: 'categories', component: CategoriesListComponent },
 
   { path: '404', component: ErrorComponent },

@@ -5,7 +5,7 @@
         <div class="hero-text">
           <h1>Welcome to Board Games Mania</h1>
           <p>Your go-to marketplace for second-hand board games</p>
-          <a href="#catalog" class="cta-button">Browse Games</a>
+          <a routerLink="/categories" class="cta-button">Browse Games</a>
         </div>
         <img src="pexels-karolina-grabowska-4887249.jpg" alt="Board Games" class="hero-image">
       </section>
@@ -14,40 +14,19 @@
         <div class="line"></div>
         <h2>Categories</h2>
         <div class="category-grid">
-          <div class="category-card">Children's Games</div>
-          <div class="category-card">Card Games</div>
-          <div class="category-card">Adventure Games</div>
-          <div class="category-card">Family Games</div>
-          <div class="category-card">Strategy Games</div>
+          <!-- Категории с RouterLink -->
+          <a [routerLink]="['/categories']" [queryParams]="{ category: 'Children\'s Games' }"
+            class="category-card">Children's Games</a>
+          <a [routerLink]="['/categories']" [queryParams]="{ category: 'Card Games' }" class="category-card">Card
+            Games</a>
+          <a [routerLink]="['/categories']" [queryParams]="{ category: 'Adventure Games' }"
+            class="category-card">Adventure Games</a>
+          <a [routerLink]="['/categories']" [queryParams]="{ category: 'Family Games' }" class="category-card">Family
+            Games</a>
+          <a [routerLink]="['/categories']" [queryParams]="{ category: 'Strategy Games' }"
+            class="category-card">Strategy Games</a>
         </div>
       </section>
-
-      <section id="catalog" class="container">
-        <div class="line"></div>
-        <h2>Available Games</h2>
-        <div class="game-grid">
-          <!-- Game cards will be dynamically rendered here by Angular -->
-        </div>
-      </section>
-
-      @if(!isLoggedIn) {
-      <div class="logged">
-        <ul>
-          <li>
-            <a routerLink="/login">
-              <i class="fas fa-sign-in-alt"></i>
-              Login
-            </a>
-          </li>
-          <li>
-            <a routerLink="/register">
-              <i class="fas fa-user-plus"></i>
-              Register
-            </a>
-          </li>
-        </ul>
-      </div>
-      }
     </div>
   </div>
 </div>
