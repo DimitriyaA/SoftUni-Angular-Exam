@@ -6,9 +6,9 @@ import { RegisterComponent } from './user/register/register.component';
 import { ProfileComponent } from './user/profile/profile.component';
 import { AddGameComponent } from './games/add-game/add-game.component';
 import { MainComponent } from './main/main.component';
-import { CurrentThemeComponent } from './games/current-theme/current-theme.component';
-import { AuthGuard } from './guards/auth.guard';
+import { DiscussionComponent } from './games/discussion/discussion.component';
 import { CategoriesListComponent } from './games/categories-list/categories-list.component';
+import { GameDetailComponent } from './games/game-details/game-details.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -24,16 +24,13 @@ export const routes: Routes = [
     path: 'games',
     children: [
       { path: '', component: MainComponent },
-      {
-        path: ':themeId',
-        component: CurrentThemeComponent,
-        canActivate: [AuthGuard],
-      },
     ],
   },
   { path: 'add-game', component: AddGameComponent },
-
   { path: 'categories', component: CategoriesListComponent },
+  { path: 'games/:gameName/details', component: GameDetailComponent },
+  { path: 'games/:id/discussion', component: DiscussionComponent },
+
 
   { path: '404', component: ErrorComponent },
   { path: '**', redirectTo: '/404' },

@@ -23,7 +23,17 @@
         <img [src]="game.picture" alt="{{ game.name }}" class="summary-image" />
         <div class="summary-details">
           <h4 class="game-name">{{ game.name }}</h4>
-          <p class="game-description">{{ game.description | slice:0:50 }}...</p>
+          <p class="game-description">{{ game.description | slice: 0: 50 }}...</p>
+
+          <!-- Link to Discussion Page -->
+          <a (click)="navigateToDiscussion(game.name)" class="discussion-link">
+            View Discussion
+          </a>
+
+          <!-- More Details Button -->
+          <button (click)="navigateToGameDetails(game.name)" class="more-details-button">
+            More Details
+          </button>
         </div>
       </div>
     </div>

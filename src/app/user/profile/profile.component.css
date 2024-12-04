@@ -1,9 +1,9 @@
 /* General Container */
 .container {
   background-color: #4b3a60;
-  /* Match the login and register form background */
+  /* Match the home component background */
   color: #fff;
-  /* Text color consistent with the login form */
+  /* Text color consistent with home */
   width: 100%;
   /* Full width */
   padding: 2em 1em;
@@ -12,8 +12,6 @@
   /* Center profile content horizontally and vertically */
   justify-content: center;
   align-items: center;
-  min-height: calc(100vh - 8em);
-  /* Adjusts for the header and footer spacing */
   font-family: 'Poppins', sans-serif;
   /* Consistent font */
 }
@@ -32,8 +30,12 @@
   /* Rounded corners */
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   /* Subtle shadow for depth */
-  text-align: center;
-  /* Center align content */
+  text-align: left;
+  /* Align text to the left */
+  display: flex;
+  flex-direction: column;
+  gap: 1.5em;
+  /* Gap between sections */
 }
 
 /* Profile Image */
@@ -44,11 +46,13 @@
   /* Set image height */
   border-radius: 50%;
   /* Circular profile picture */
-  margin-bottom: 1em;
+  align-self: center;
+  /* Center the image */
+  margin-bottom: 1.5em;
   /* Add spacing below the image */
 }
 
-/* Profile Info Section */
+/* Profile Heading */
 .profile h3 {
   font-size: 1.8em;
   /* Large heading */
@@ -56,15 +60,17 @@
   /* Bold font */
   margin-bottom: 1.5em;
   /* Add spacing below the heading */
+  text-align: center;
+  /* Center the title */
 }
 
-/* Profile Details */
+/* Profile Info Section */
 .profile .flex {
   display: flex;
   justify-content: space-between;
   /* Space between label and value */
-  margin-bottom: 1em;
-  /* Add spacing between rows */
+  margin-bottom: 1.2em;
+  /* Reduced spacing */
 }
 
 .profile .flex p {
@@ -74,10 +80,10 @@
 
 /* Edit Button */
 .edit-button {
-  background-color: #ffc107;
-  /* Match button style from login */
-  color: #4b3a60;
-  /* Text color matching home buttons */
+  background-color: #4b3a60;
+  /* Match the button style from the home component */
+  color: white;
+  /* Text color matching the button's background */
   border: none;
   /* Remove border */
   border-radius: 5px;
@@ -92,13 +98,17 @@
   /* Pointer cursor on hover */
   transition: background-color 0.3s, transform 0.2s;
   /* Smooth hover effects */
+  align-self: center;
+  /* Center the button */
+  width: 150px;
+  /* Set fixed width for consistency */
 }
 
 .edit-button:hover {
-  background-color: #fff;
-  /* Lighten background on hover */
+  background-color: #ffc107;
+  /* Change background on hover to match button hover style */
   color: #4b3a60;
-  /* Match text color to header/footer */
+  /* Change text color to the matching color */
   transform: scale(1.05);
   /* Slightly enlarge on hover */
 }

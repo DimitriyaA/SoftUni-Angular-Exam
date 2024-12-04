@@ -1,0 +1,26 @@
+<div class="discussion-container">
+  <div class="comment-list-wrapper">
+    <h3 class="discussion-header">Discussion for Sample Game</h3> <!-- This will be centered -->
+
+    <!-- List of comments -->
+    <div *ngIf="comments.length > 0">
+      <ul class="comment-list">
+        <li *ngFor="let comment of comments">
+          <strong>{{ comment.user }}:</strong> {{ comment.message }}
+        </li>
+      </ul>
+    </div>
+
+    <!-- No comments message -->
+    <div *ngIf="comments.length === 0" class="no-comments-message">
+      No comments yet. Be the first to comment!
+    </div>
+
+    <!-- Add Comment Form -->
+    <div class="add-comment-form">
+      <input type="text" placeholder="Your name" [(ngModel)]="newComment.name" />
+      <textarea placeholder="Add a comment..." [(ngModel)]="newComment.text"></textarea>
+      <button (click)="addComment()">Post Comment</button>
+    </div>
+  </div>
+</div>

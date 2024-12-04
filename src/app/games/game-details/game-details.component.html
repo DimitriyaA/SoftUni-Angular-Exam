@@ -1,0 +1,37 @@
+<div class="game-detail-container">
+  <div class="game-detail" *ngIf="game">
+    <h3>{{ game.name }}</h3>
+    <img [src]="game.picture" alt="{{ game.name }}" style="width: 100%; border-radius: 8px; margin-bottom: 20px" />
+
+    <!-- Game Description -->
+    <p><strong>Description:</strong> {{ game.description }}</p>
+    <p><strong>Condition:</strong> {{ game.condition }}</p>
+    <p><strong>Price:</strong> ${{ game.price }}</p>
+    <p><strong>Category:</strong> {{ game.category }}</p>
+
+    <!-- Discussion Section -->
+    <div class="comments-forum">
+      <h3>Discussion</h3>
+      <div *ngFor="let comment of comments">
+        <div class="comment">
+          <div class="comment-header">
+            <span>{{ comment.user }}</span>
+            <span class="comment-date">{{ comment.date }}</span>
+          </div>
+          <div class="comment-body">{{ comment.message }}</div>
+        </div>
+      </div>
+
+      <!-- Add Comment Form -->
+      <div class="comment-form">
+        <textarea [(ngModel)]="newComment" placeholder="Add a comment" rows="4"></textarea>
+        <button (click)="addComment()" [disabled]="!newComment.trim()">Add Comment</button>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="!game">
+    <h3>Game not found</h3>
+    <p>Sorry, we couldn't find the game you're looking for. Please check the URL or go back to the game list.</p>
+  </div>
+</div>
