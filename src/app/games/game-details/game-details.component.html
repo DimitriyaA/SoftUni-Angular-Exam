@@ -1,5 +1,6 @@
 <div class="game-detail-container">
-  <div class="game-detail" *ngIf="game">
+  @if (game) {
+  <div class="game-detail">
     <h3>{{ game.name }}</h3>
     <img [src]="game.picture" alt="{{ game.name }}" style="width: 100%; border-radius: 8px; margin-bottom: 20px" />
 
@@ -12,15 +13,22 @@
     <!-- Discussion Section -->
     <div class="comments-forum">
       <h3>Discussion</h3>
-      <div *ngFor="let comment of comments">
-        <div class="comment">
-          <div class="comment-header">
-            <span>{{ comment.user }}</span>
-            <span class="comment-date">{{ comment.date }}</span>
-          </div>
-          <div class="comment-body">{{ comment.message }}</div>
+
+      @if (comments.length > 0) {
+      @for (comment of comments; track $index) {
+      <div class="comment">
+        <div class="comment-header">
+          <span>{{ comment.user }}</span>
+          <span class="comment-date">{{ comment.date }}</span>
         </div>
+        <div class="comment-body">{{ comment.message }}</div>
       </div>
+      }
+      }@else {
+      <div class="no-comments-message">
+        No comments yet. Be the first to comment!
+      </div>
+      }
 
       <!-- Add Comment Form -->
       <div class="comment-form">
@@ -29,9 +37,10 @@
       </div>
     </div>
   </div>
-
-  <div *ngIf="!game">
+  }@else {
+  <div>
     <h3>Game not found</h3>
     <p>Sorry, we couldn't find the game you're looking for. Please check the URL or go back to the game list.</p>
   </div>
+  }
 </div>

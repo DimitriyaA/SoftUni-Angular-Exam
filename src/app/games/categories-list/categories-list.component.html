@@ -1,25 +1,30 @@
 <main>
-  <!-- Loader -->
-  <app-loader *ngIf="isLoading"></app-loader>
-
-  <!-- Main Content -->
-  <div *ngIf="!isLoading" class="content-container">
+  @if (isLoading) {
+  <app-loader />
+  } @else {
+  <div class="content-container">
     <!-- Left Column: Categories -->
     <div class="categories-column">
       <h3>Categories</h3>
       <ul>
-        <li *ngFor="let category of categories" class="category-button" [class.active]="currentCategory === category"
-          (click)="filterByCategory(category)">
+        @for (category of categories; track $index) {
+        <li class="category-button" [class.active]="currentCategory === category" (click)="filterByCategory(category)">
           {{ category }}
         </li>
+        }
       </ul>
     </div>
 
     <!-- Right Column: Games -->
     <div class="games-display-column">
-      <h3 *ngIf="!currentCategory">Last 5 Added Games</h3>
-      <h3 *ngIf="currentCategory">Last 5 Games in "{{ currentCategory }}"</h3>
-      <div *ngFor="let game of displayedGames" class="game-summary">
+      @if (!currentCategory) {
+      <h3> Last 5 Added Games</h3>
+      }
+      @if (currentCategory){
+      <h3>Last 5 Games in "{{ currentCategory }}"</h3>
+      }
+      @for (game of displayedGames; track $index) {
+      <div class="game-summary">
         <img [src]="game.picture" alt="{{ game.name }}" class="summary-image" />
         <div class="summary-details">
           <h4 class="game-name">{{ game.name }}</h4>
@@ -36,6 +41,8 @@
           </button>
         </div>
       </div>
+      }
     </div>
   </div>
+  }
 </main>
