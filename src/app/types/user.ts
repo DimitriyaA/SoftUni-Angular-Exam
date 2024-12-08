@@ -31,8 +31,12 @@ export interface User {
 
 // For Authentication - This is the structure for the user during login/register
 export interface UserForAuth {
+  firstName: string;  // Fisrt Name
+  lastName: string;   // Last Name
   email: string;           // User email for authentication
   password: string;        // User password for authentication
+  phoneNumber: string;
+  id: string;
 }
 
 // Optional Profile Update interface
