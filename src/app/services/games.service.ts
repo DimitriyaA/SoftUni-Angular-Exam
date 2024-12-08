@@ -3,14 +3,17 @@ import { Firestore, collectionData, collection } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
 
 @Injectable({
-    providedIn: 'root', // This makes the service globally available
+    providedIn: 'root',
 })
 export class GameService {
-    private gamesCollection = collection(this.firestore, 'games');
+    gamesCollection: Observable<any[]>
 
-    constructor(private firestore: Firestore) { }
+    constructor(private firestore: Firestore) {
+        const gamesCollection = collection(this.firestore, 'games')
+        this.gamesCollection = collectionData(gamesCollection)
+    }
 
-    getGames(): Observable<any[]> {
-        return collectionData(this.gamesCollection, { idField: 'id' });
+    getGames() {
+        return this.gamesCollection
     }
 }
