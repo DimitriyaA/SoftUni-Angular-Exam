@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
+import { GameService } from '../../services/games.service'; // Import the GameService
 
 @Component({
   selector: 'app-add-game',
@@ -6,18 +8,10 @@ import { Component } from '@angular/core';
   styleUrls: ['./add-game.component.css']
 })
 export class AddGameComponent {
-  gamesByCategory: { [key: string]: any[] } = {
-    childrens: [],
-    card: [],
-    adventure: [],
-    family: []
-  };
-
   isLoading: boolean = false;
 
-  constructor() { }
+  constructor(private gameService: GameService, private router: Router) { }
 
-  // Add game method remains unchanged
   addGame(
     event: Event,
     name: string,
@@ -45,18 +39,15 @@ export class AddGameComponent {
       category
     };
 
-    if (this.gamesByCategory[category]) {
-      this.gamesByCategory[category].push(newGame);
-    } else {
-      console.error('Invalid category selected.');
-    }
-
-    console.log('Games by Category:', this.gamesByCategory);
+    // Call the GameService to add the new game to Firestore
+    this.gameService.addGame(newGame).subscribe({
+      next: () => {
+        alert('Game added successfully!');
+        this.router.navigate(['/categories']); // Navigate to the categories page after adding the game
+      },
+      error: (err) => {
+        console.error('Failed to add the game:', err);
+      }
+    });
   }
 }
-
-// Example: send the game object to a service or backend API
-// this.gameService.addGame(newGame).subscribe(() => {
-//   alert('Game added successfully!');
-// });
-

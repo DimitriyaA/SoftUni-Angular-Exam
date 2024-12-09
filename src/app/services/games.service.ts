@@ -1,19 +1,31 @@
 import { Injectable } from '@angular/core';
-import { Firestore, collectionData, collection } from '@angular/fire/firestore';
+import { Firestore, collection, addDoc, collectionData } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
 
 @Injectable({
     providedIn: 'root',
 })
 export class GameService {
-    gamesCollection: Observable<any[]>
+    constructor(private firestore: Firestore) { }
 
-    constructor(private firestore: Firestore) {
-        const gamesCollection = collection(this.firestore, 'games')
-        this.gamesCollection = collectionData(gamesCollection)
+    // Method to add a new game to the Firestore
+    addGame(game: any): Observable<void> {
+        const gamesCollection = collection(this.firestore, 'games');
+        return new Observable<void>((observer) => {
+            addDoc(gamesCollection, game)
+                .then(() => {
+                    observer.next();
+                    observer.complete();
+                })
+                .catch((error) => {
+                    observer.error(error);
+                });
+        });
     }
 
-    getGames() {
-        return this.gamesCollection
+    // Method to get games from Firestore
+    getGames(): Observable<any[]> {
+        const gamesCollection = collection(this.firestore, 'games');
+        return collectionData(gamesCollection, { idField: 'id' });
     }
 }
