@@ -1,34 +1,25 @@
-import { Component, inject, signal } from '@angular/core';
-import { Router, RouterLink } from '@angular/router';
-import { getAuth, signInWithEmailAndPassword } from '@angular/fire/auth';
+import { Component } from '@angular/core';
+import { AuthService } from '../../services/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
-  standalone: true,
-  imports: [RouterLink],
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css'],
+  styleUrls: ['./login.component.css']
 })
 export class LoginComponent {
-  private auth = getAuth(); // Firebase Auth instance
-  errorMessage = signal<string | null>(null); // Signal for error messages
+  email: string = '';
+  password: string = '';
+  errorMessage: string = '';
 
-  constructor(private router: Router) { }
+  constructor(private authService: AuthService, private router: Router) { }
 
-  async login(event: Event, email: string, password: string) {
-    event.preventDefault(); // Prevent form submission from reloading the page
-
-    if (!email || !password) {
-      this.errorMessage.set('Please fill in both fields.');
-      return;
-    }
-
+  async login() {
     try {
-      await signInWithEmailAndPassword(this.auth, email, password);
-      this.errorMessage.set(null); // Clear any previous errors
-      this.router.navigate(['/home']); // Redirect to home page
+      await this.authService.login(this.email, this.password);
+      this.router.navigate(['/profile']);
     } catch (error: any) {
-      this.errorMessage.set(error.message || 'Login failed. Please try again.');
+      this.errorMessage = error.message;
     }
   }
 }

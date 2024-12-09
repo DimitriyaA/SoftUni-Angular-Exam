@@ -1,65 +1,76 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { CommonModule } from '@angular/common';  // Import CommonModule
-import { FormsModule } from '@angular/forms';  // Import FormsModule
+import { ActivatedRoute, Router } from '@angular/router';
+import { AuthService } from '../../services/auth.service';
+import { GameService } from '../../services/games.service';
+import { Firestore, collection, addDoc, collectionData } from '@angular/fire/firestore';
+import { FormsModule } from '@angular/forms'; // Import FormsModule
+import { CommonModule } from '@angular/common'; // Import CommonModule
 
 @Component({
   selector: 'app-game-detail',
-  standalone: true,  // This makes this component standalone
-  imports: [CommonModule, FormsModule],  // Add CommonModule and FormsModule to imports
+  standalone: true,
+  imports: [FormsModule, CommonModule],  // Add FormsModule and CommonModule here
+  providers: [GameService],
   templateUrl: './game-details.component.html',
-  styleUrls: ['./game-details.component.css']
+  styleUrls: ['./game-details.component.css'],
 })
 export class GameDetailComponent implements OnInit {
-  game: any;  // To store the selected game details
-  comments: { user: string; message: string; date: string }[] = []; // Updated to include 'date' property
-  gameName: string = ''; // The name of the game from the URL
-  newComment: string = ''; // Variable to bind the new comment input
+  game: any = null; // To store the game details
+  comments: any[] = []; // To store comments
+  newComment: { name: string; text: string } = { name: '', text: '' };
 
-  // Mock data for games
-  games = [
-    { name: 'Game 1', description: 'A fun game for everyone.', picture: 'game1.jpg', condition: 'New', price: 10, category: 'Card Games' },
-    { name: 'Game 2', description: 'Exciting adventure gameplay.', picture: 'game2.jpg', condition: 'Used', price: 15, category: 'Adventure Games' },
-    // Add all your game data here
-  ];
-
-  constructor(private route: ActivatedRoute) { }
+  constructor(
+    private route: ActivatedRoute,
+    private router: Router,
+    public authService: AuthService,
+    private firestore: Firestore
+  ) { }
 
   ngOnInit(): void {
-    // Get the game name from the URL and fetch the game details
-    this.route.paramMap.subscribe(params => {
-      const gameName = params.get('gameName');
-      if (gameName) {
-        this.gameName = gameName;
-        this.getGameDetails(gameName);  // Fetch game details
-        this.loadComments();  // Optionally, load comments for this game
+    const gameName = this.route.snapshot.paramMap.get('gameName');
+    if (gameName) {
+      this.loadGameDetails(gameName);
+      this.loadComments(gameName);
+    } else {
+      this.router.navigate(['/404']);
+    }
+  }
+
+  // Fetch game details from Firestore
+  loadGameDetails(gameName: string): void {
+    const gamesCollection = collection(this.firestore, 'games');
+    collectionData(gamesCollection, { idField: 'id' }).subscribe((games) => {
+      this.game = games.find((g) => g.name === gameName);
+      if (!this.game) {
+        this.router.navigate(['/404']);
       }
     });
   }
 
-  // Fetch game details by name
-  getGameDetails(gameName: string): void {
-    this.game = this.games.find(game => game.name.toLowerCase() === gameName.toLowerCase().trim());
-    if (!this.game) {
-      // Handle the case where the game is not found (e.g., show an error message)
-      console.error('Game not found');
-    }
+  // Fetch comments related to the current game
+  loadComments(gameName: string): void {
+    const commentsCollection = collection(this.firestore, `games/${gameName}/comments`);
+    collectionData(commentsCollection, { idField: 'id' }).subscribe((data) => {
+      this.comments = data;
+    });
   }
 
-  // Load comments for this game (you can mock or fetch from a service)
-  loadComments(): void {
-    // Mock comments with a 'date' property
-    this.comments = [
-      { user: 'Alice', message: 'This is amazing!', date: '2024-12-04' },
-      { user: 'Bob', message: 'I like the gameplay.', date: '2024-12-03' },
-    ];
-  }
-
-  // Add new comment
+  // Add a new comment to Firestore
   addComment(): void {
-    if (this.newComment.trim()) {
-      this.comments.push({ user: 'Anonymous', message: this.newComment.trim(), date: new Date().toISOString() });
-      this.newComment = ''; // Reset the input field after adding the comment
+    if (this.newComment.text.trim()) {
+      const commentsCollection = collection(this.firestore, `games/${this.game.name}/comments`);
+      addDoc(commentsCollection, {
+        user: this.authService.getCurrentUser()?.email || 'Anonymous',
+        message: this.newComment.text.trim(),
+        date: new Date().toISOString(),
+      }).then(() => {
+        this.newComment = { name: '', text: '' }; // Clear input fields
+      });
     }
+  }
+
+  canEditGame(gameUserId: string): boolean {
+    const user = this.authService.getCurrentUser();
+    return user?.uid === gameUserId;
   }
 }

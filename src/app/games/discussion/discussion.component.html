@@ -1,28 +1,20 @@
-<div class="discussion-container">
-  <div class="comment-list-wrapper">
-    <h3 class="discussion-header">Discussion for Sample Game</h3> <!-- This will be centered -->
+<div *ngIf="comments.length > 0; else noComments">
+  <ul>
+    <li *ngFor="let comment of comments">
+      <strong>{{ comment.user }}:</strong> {{ comment.message }} ({{ comment.date }})
+    </li>
+  </ul>
+</div>
 
-    <!-- List of comments -->
-    @if (comments.length > 0) {
-    <ul class="comment-list">
-      @for (comment of comments; track $index) {
-      <li>
-        <strong>{{ comment.user }}:</strong> {{ comment.message }}
-      </li>
-      }
-    </ul>
-    }@else {
-    <!-- No comments message -->
-    <div class="no-comments-message">
-      No comments yet. Be the first to comment!
-    </div>
-    }
+<ng-template #noComments>
+  <p>No comments yet.</p>
+  <p *ngIf="authService.isLoggedIn()">Be the first to comment!</p>
+  <p *ngIf="!authService.isLoggedIn()">Please <a routerLink="/login">log in</a> to view or add comments.</p>
+</ng-template>
 
-    <!-- Add Comment Form -->
-    <div class="add-comment-form">
-      <input type="text" placeholder="Your name" [(ngModel)]="newComment.name" />
-      <textarea placeholder="Add a comment..." [(ngModel)]="newComment.text"></textarea>
-      <button (click)="addComment()">Post Comment</button>
-    </div>
-  </div>
+<!-- Add Comment Form -->
+<div *ngIf="authService.isLoggedIn()">
+  <input type="text" placeholder="Your name" [(ngModel)]="newComment.name" />
+  <textarea placeholder="Add a comment..." [(ngModel)]="newComment.text"></textarea>
+  <button (click)="addComment()">Post Comment</button>
 </div>

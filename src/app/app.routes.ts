@@ -9,6 +9,7 @@ import { MainComponent } from './main/main.component';
 import { DiscussionComponent } from './games/discussion/discussion.component';
 import { CategoriesListComponent } from './games/categories-list/categories-list.component';
 import { GameDetailComponent } from './games/game-details/game-details.component';
+import { AuthGuard } from './guards/auth.guard';
 
 export const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -17,19 +18,14 @@ export const routes: Routes = [
   // User routing
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
-  { path: 'profile', component: ProfileComponent },
+  { path: 'profile', component: ProfileComponent, canActivate: [AuthGuard] },
 
   // Games routing
-  {
-    path: 'games',
-    children: [
-      { path: '', component: MainComponent },
-    ],
-  },
-  { path: 'add-game', component: AddGameComponent },
+
   { path: 'categories', component: CategoriesListComponent },
-  { path: 'games/:gameName/details', component: GameDetailComponent },
-  { path: 'games/:id/discussion', component: DiscussionComponent },
+  { path: 'add-game', component: AddGameComponent, canActivate: [AuthGuard] },
+  { path: 'games/:gameId/details', component: GameDetailComponent },
+  { path: 'games/:gameId/comments', component: DiscussionComponent, canActivate: [AuthGuard] },
 
 
   { path: '404', component: ErrorComponent },

@@ -1,51 +1,30 @@
-import { Component, inject, signal } from '@angular/core';
-import { Router, RouterLink } from '@angular/router';
-import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { createUserWithEmailAndPassword, getAuth } from '@angular/fire/auth';
+import { Component } from '@angular/core';
+import { ReactiveFormsModule, FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-register',
   standalone: true,
-  imports: [RouterLink, ReactiveFormsModule],
+  imports: [ReactiveFormsModule], // Import ReactiveFormsModule here
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.css'],
 })
 export class RegisterComponent {
-  // Firebase Auth instance
-  private auth = getAuth();
+  errorMessage: string = '';
 
-  // Signal for form feedback messages
-  errorMessage = signal<string | null>(null);
-
-  // Reactive Form
+  // FormGroup definition
   registerForm = new FormGroup({
-    username: new FormControl('', [Validators.required]),
+    username: new FormControl('', Validators.required),
     email: new FormControl('', [Validators.required, Validators.email]),
-    tel: new FormControl('', [Validators.required, Validators.pattern(/^\d{9}$/)]),
-    password: new FormControl('', [Validators.required, Validators.minLength(6)]),
-    rePassword: new FormControl('', [Validators.required]),
+    phone: new FormControl(''),
+    password: new FormControl('', Validators.required),
+    rePassword: new FormControl('', Validators.required),
   });
 
-  constructor(private router: Router) { }
-
-  async onSubmit() {
-    if (this.registerForm.invalid) {
-      this.errorMessage.set('Please fill in all fields correctly.');
-      return;
-    }
-
-    const { email, password, rePassword } = this.registerForm.value;
-
-    if (password !== rePassword) {
-      this.errorMessage.set('Passwords do not match.');
-      return;
-    }
-
-    try {
-      await createUserWithEmailAndPassword(this.auth, email!, password!);
-      this.router.navigate(['/']);
-    } catch (error: any) {
-      this.errorMessage.set(error.message || 'Registration failed.');
+  onSubmit() {
+    if (this.registerForm.valid) {
+      console.log('Form Submitted', this.registerForm.value);
+    } else {
+      this.errorMessage = 'Please fill all required fields correctly.';
     }
   }
 }

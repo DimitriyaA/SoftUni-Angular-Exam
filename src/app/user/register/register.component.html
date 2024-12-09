@@ -1,66 +1,22 @@
-<div class="container">
-  <form class="register" (submit)="onSubmit()">
-    <fieldset>
-      <h2>Registration Form</h2>
+<form (submit)="onSubmit()">
+  <label>Username</label>
+  <input [formControl]="registerForm.controls.username" type="text" />
 
-      <!-- username -->
-      <p class="field field-icon">
-        <label for="username"><span><i class="fas fa-user"></i></span></label>
-        <input [formControl]="registerForm.controls.username" type="text" id="username" placeholder="Username" />
-      </p>
-      @if (registerForm.controls.username.touched && registerForm.controls.username.invalid) {
-      <p class="error">Username is required!</p>
-      }
+  <label>Email</label>
+  <input [formControl]="registerForm.controls.email" type="email" />
 
-      <!-- email -->
-      <p class="field field-icon">
-        <label for="email"><span><i class="fas fa-envelope"></i></span></label>
-        <input [formControl]="registerForm.controls.email" type="email" id="email" placeholder="username@gmail.com" />
-      </p>
-      @if (registerForm.controls.email.touched && registerForm.controls.email.invalid) {
-      <p class="error">Valid email is required!</p>
-      }
+  <label>Phone</label>
+  <input [formControl]="registerForm.controls.phone" type="text" />
 
-      <!-- telephone -->
-      <p class="field field-icon">
-        <label for="tel"><span><i class="fas fa-phone"></i></span></label>
-        <select id="select-tel" class="tel">
-          <option value="00359">+359</option>
-        </select>
-        <input [formControl]="registerForm.controls.tel" type="text" id="tel" placeholder="885 888 888" />
-      </p>
-      @if (registerForm.controls.tel.touched && registerForm.controls.tel.invalid) {
-      <p class="error">Telephone is required (9 digits)!</p>
-      }
+  <label>Password</label>
+  <input [formControl]="registerForm.controls.password" type="password" />
 
-      <!-- password -->
-      <p class="field field-icon">
-        <label for="password"><span><i class="fas fa-lock"></i></span></label>
-        <input [formControl]="registerForm.controls.password" type="password" id="password" placeholder="******" />
-      </p>
-      @if (registerForm.controls.password.touched && registerForm.controls.password.invalid) {
-      <p class="error">Password must be at least 6 characters!</p>
-      }
+  <label>Confirm Password</label>
+  <input [formControl]="registerForm.controls.rePassword" type="password" />
 
-      <!-- rePassword -->
-      <p class="field field-icon">
-        <label for="rePassword"><span><i class="fas fa-lock"></i></span></label>
-        <input [formControl]="registerForm.controls.rePassword" type="password" id="rePassword" placeholder="******" />
-      </p>
-      @if (registerForm.controls.rePassword.touched && registerForm.controls.rePassword.invalid) {
-      <p class="error">Repeat Password is required!</p>
-      }
+  @if (errorMessage) {
+  <p class="error">{{ errorMessage }}</p>
+  }
 
-      @if (errorMessage()) {
-      <p class="error">{{ errorMessage() }}</p>
-      }
-
-      <button [disabled]="registerForm.invalid">Create Account</button>
-
-      <p class="text-center">
-        Have an account?
-        <a routerLink="/login">Log In</a>
-      </p>
-    </fieldset>
-  </form>
-</div>
+  <button type="submit" [disabled]="registerForm.invalid">Register</button>
+</form>

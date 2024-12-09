@@ -2,8 +2,18 @@
   <div class="err">4</div>
   <i class="far fa-question-circle fa-spin"></i>
   <div class="err2">4</div>
-  <div class="msg">
-    Ooops! Page Not Found
-    <p>Let's go <a routerLink="/home">home</a> and try from there.</p>
-  </div>
+  <h2>404 - Not Found</h2>
+
+  @if (errorMessage) {
+  <p>{{ errorMessage }}</p>
+  } @else {
+  <p>Sorry, page not found.</p>
+  }
+
+  @if (!authService.isLoggedIn()) {
+  <p>
+    Please <a routerLink="/login">log in</a> or
+    <a routerLink="/register">register</a> to access restricted content.
+  </p>
+  }
 </div>

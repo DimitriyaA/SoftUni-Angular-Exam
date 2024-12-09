@@ -1,11 +1,13 @@
 import { Component } from '@angular/core';
-import { RouterLink } from '@angular/router';
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'app-error',
   standalone: true,
-  imports: [RouterLink],
   templateUrl: './error.component.html',
-  styleUrl: './error.component.css',
+  styleUrls: ['./error.component.css'],
 })
-export class ErrorComponent {}
+export class ErrorComponent {
+  errorMessage: string = 'Sorry, page not found.'; // Добавено свойство
+  constructor(public authService: AuthService) { }   // Инжектиране на AuthService
+}
