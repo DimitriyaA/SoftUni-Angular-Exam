@@ -6,6 +6,6 @@ export const environment = {
     projectId: "boardgamesmania-eefb9",
     storageBucket: "boardgamesmania-eefb9.firebasestorage.app",
     messagingSenderId: "96465178191",
-    appId: "1:96465178191:web:e1f9a7bc464b77fbf9a43a"
+    appId: "1:96465178191:web:e47caf89aff0be3ef9a43a"
   }
 };

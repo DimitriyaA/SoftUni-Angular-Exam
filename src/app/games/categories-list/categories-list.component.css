@@ -1,166 +1,67 @@
-/* Main container for the layout */
-.content-container {
+.categories-container {
   display: flex;
-  margin-top: 1.5em;
-  margin-bottom: 1.5em;
+  gap: 1.5rem;
+  padding: 1rem;
 }
 
-/* Categories column (left side) */
-.categories-column {
-  flex: 1;
-  background-color: #f9f9f9;
-  padding: 15px;
-  border-radius: 8px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-  margin-right: 1.5em;
+.sidebar {
+  width: 25%;
+  background-color: #f8f8f8;
+  padding: 1rem;
+  border-right: 1px solid #ccc;
 }
 
-.categories-column h3 {
-  font-size: 1.5em;
-  margin-bottom: 10px;
-  text-align: center;
+.sidebar h3 {
+  margin-bottom: 1rem;
 }
 
-.categories-column ul {
+.sidebar ul {
   list-style: none;
   padding: 0;
-  margin: 0;
 }
 
-.category-button {
-  display: block;
-  font-size: 1.1em;
-  margin: 10px 0;
-  padding: 10px 15px;
-  background-color: #4b3a60;
-  color: white;
-  text-align: center;
-  border-radius: 5px;
+.sidebar li {
+  padding: 0.5rem;
   cursor: pointer;
-  transition: background-color 0.3s, transform 0.2s;
+  border-radius: 5px;
 }
 
-.category-button:hover {
+.sidebar li:hover {
   background-color: #ffc107;
-  transform: scale(1.05);
+  color: #fff;
 }
 
-.category-button.active {
-  background-color: #ffc107;
-  color: #4b3a60;
+.games-list {
+  width: 75%;
 }
 
-/* Games display column (right side) */
-.games-display-column {
-  flex: 1;
-  background-color: #fff;
-  padding: 15px;
-  border-radius: 8px;
+.game-card {
+  border: 1px solid #ddd;
+  padding: 1rem;
+  margin: 0.5rem 0;
+  border-radius: 5px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
-.games-display-column h3 {
-  font-size: 1.5em;
-  margin-bottom: 15px;
-  text-align: center;
-}
-
-.game-summary {
-  display: flex;
-  align-items: center;
-  gap: 15px;
-  margin-bottom: 20px;
-  padding: 10px;
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-  transition: box-shadow 0.3s;
-}
-
-.game-summary:hover {
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
-}
-
-.summary-image {
-  width: 60px;
-  height: 60px;
-  border-radius: 4px;
-  object-fit: cover;
-}
-
-.summary-details {
-  flex: 1;
-}
-
-.game-name {
-  font-size: 1.2em;
-  font-weight: bold;
+.game-card h4 {
   margin: 0;
 }
 
-.game-description {
-  font-size: 0.9em;
+.game-card p {
+  font-size: 0.9rem;
   color: #666;
-  margin: 5px 0 0;
 }
 
-/* Flex container for buttons (both View Discussion and More Details on the same line) */
-.game-summary .summary-details {
-  display: flex;
-  gap: 15px;
-  /* Space between buttons */
-  align-items: center;
-  /* Align buttons vertically centered */
-  margin-top: 10px;
-  /* Add some margin at the top */
-}
-
-/* Styling for both buttons to ensure they look the same */
-.discussion-link,
-.more-details-button {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  padding: 10px 20px;
-  /* Sufficient padding to make both buttons even */
-  font-size: 14px;
-  font-weight: 500;
-  text-transform: uppercase;
+.game-card button {
+  margin-right: 0.5rem;
+  padding: 0.5rem 1rem;
   border: none;
-  border-radius: 30px;
+  background-color: #ffc107;
+  color: #fff;
+  border-radius: 5px;
   cursor: pointer;
-  transition: background-color 0.3s, transform 0.2s ease;
-  color: white;
-  text-decoration: none;
-  /* For the View Discussion link */
-  width: 150px;
-  /* Fixed width for consistent button size */
-  text-align: center;
-  /* Ensure text is centered */
 }
 
-/* View Discussion Button */
-.discussion-link {
-  background-color: #4b3a60;
-  /* Match More Details button */
-}
-
-.discussion-link:hover {
-  background-color: #ffc107;
-  transform: scale(1.05);
-}
-
-/* More Details Button */
-.more-details-button {
-  background-color: #4b3a60;
-}
-
-.more-details-button:hover {
-  background-color: #ffc107;
-  transform: scale(1.05);
-}
-
-/* Additional styling for the summary image and details */
-.game-summary .summary-details {
-  flex: 1;
+.game-card button:hover {
+  background-color: #e0a800;
 }

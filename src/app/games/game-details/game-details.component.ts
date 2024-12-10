@@ -1,76 +1,43 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { AuthService } from '../../services/auth.service';
-import { GameService } from '../../services/games.service';
-import { Firestore, collection, addDoc, collectionData } from '@angular/fire/firestore';
-import { FormsModule } from '@angular/forms'; // Import FormsModule
-import { CommonModule } from '@angular/common'; // Import CommonModule
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
+import { GameService } from '../../services/game.service';
 
 @Component({
-  selector: 'app-game-detail',
+  selector: 'app-game-details',
   standalone: true,
-  imports: [FormsModule, CommonModule],  // Add FormsModule and CommonModule here
-  providers: [GameService],
+  imports: [CommonModule, FormsModule],
   templateUrl: './game-details.component.html',
   styleUrls: ['./game-details.component.css'],
 })
-export class GameDetailComponent implements OnInit {
-  game: any = null; // To store the game details
-  comments: any[] = []; // To store comments
-  newComment: { name: string; text: string } = { name: '', text: '' };
+export class GameDetailsComponent implements OnInit {
+  gameId: string | null = null;
+  comments: { text: string; createdAt: Date }[] = [];
+  newComment: string = '';
 
   constructor(
     private route: ActivatedRoute,
-    private router: Router,
-    public authService: AuthService,
-    private firestore: Firestore
+    private gameService: GameService
   ) { }
 
   ngOnInit(): void {
-    const gameName = this.route.snapshot.paramMap.get('gameName');
-    if (gameName) {
-      this.loadGameDetails(gameName);
-      this.loadComments(gameName);
-    } else {
-      this.router.navigate(['/404']);
-    }
+    this.gameId = this.route.snapshot.paramMap.get('id');
+    this.loadComments();
   }
 
-  // Fetch game details from Firestore
-  loadGameDetails(gameName: string): void {
-    const gamesCollection = collection(this.firestore, 'games');
-    collectionData(gamesCollection, { idField: 'id' }).subscribe((games) => {
-      this.game = games.find((g) => g.name === gameName);
-      if (!this.game) {
-        this.router.navigate(['/404']);
-      }
-    });
+  loadComments(): void {
+    // Replace with real logic to fetch comments
+    this.comments = [
+      { text: 'Great game!', createdAt: new Date() },
+      { text: 'Loved it!', createdAt: new Date() },
+    ];
   }
 
-  // Fetch comments related to the current game
-  loadComments(gameName: string): void {
-    const commentsCollection = collection(this.firestore, `games/${gameName}/comments`);
-    collectionData(commentsCollection, { idField: 'id' }).subscribe((data) => {
-      this.comments = data;
-    });
-  }
-
-  // Add a new comment to Firestore
   addComment(): void {
-    if (this.newComment.text.trim()) {
-      const commentsCollection = collection(this.firestore, `games/${this.game.name}/comments`);
-      addDoc(commentsCollection, {
-        user: this.authService.getCurrentUser()?.email || 'Anonymous',
-        message: this.newComment.text.trim(),
-        date: new Date().toISOString(),
-      }).then(() => {
-        this.newComment = { name: '', text: '' }; // Clear input fields
-      });
+    if (this.newComment.trim()) {
+      this.comments.push({ text: this.newComment, createdAt: new Date() });
+      this.newComment = '';
     }
-  }
-
-  canEditGame(gameUserId: string): boolean {
-    const user = this.authService.getCurrentUser();
-    return user?.uid === gameUserId;
   }
 }

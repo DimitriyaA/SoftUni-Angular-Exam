@@ -1,68 +1,120 @@
-import { Injectable, Inject } from '@angular/core';
-import { Router } from '@angular/router';
-import { Auth, getAuth, signInWithEmailAndPassword, signOut } from '@angular/fire/auth';
-import { Firestore, collection, doc, setDoc, getDoc } from '@angular/fire/firestore';
+import { Injectable, inject } from '@angular/core';
+import {
+    Auth,
+    createUserWithEmailAndPassword,
+    signInWithEmailAndPassword,
+    updateProfile,
+    UserCredential,
+    User,
+    signOut,
+} from '@angular/fire/auth';
+import {
+    Firestore,
+    collection,
+    doc,
+    getDocs,
+    query,
+    where,
+} from '@angular/fire/firestore';
 
 @Injectable({
-    providedIn: 'root'
+    providedIn: 'root',
 })
 export class AuthService {
-    constructor(
-        @Inject(getAuth) private afAuth: Auth, // Firebase Auth instance
-        @Inject(Firestore) private firestore: Firestore, // Firestore instance
-        private router: Router
-    ) { }
+    private auth = inject(Auth); // Firebase Authentication instance
+    private firestore = inject(Firestore); // Firestore instance for user data
 
-    // Регистрация
-    async register(email: string, password: string, username: string) {
+    /**
+     * Register a new user and set their username in displayName.
+     * @param email User email
+     * @param password User password
+     * @param username User's display name
+     */
+    async register(email: string, password: string, username: string): Promise<void> {
         try {
-            const userCredential = await signInWithEmailAndPassword(this.afAuth, email, password);
+            const userCredential: UserCredential = await createUserWithEmailAndPassword(
+                this.auth,
+                email,
+                password
+            );
             const user = userCredential.user;
 
-            // Запазване на потребителските данни във Firestore
-            await setDoc(doc(this.firestore, 'users', user.uid), {
-                email: user.email,
-                username: username
-            });
+            // Set the displayName (username) for the user in Firebase Authentication
+            await updateProfile(user, { displayName: username });
 
-            this.router.navigate(['/profile']);
+            console.log('User registered successfully with username:', username);
         } catch (error: any) {
             console.error('Registration error:', error.message);
             throw error;
         }
     }
 
-    // Вход
-    async login(email: string, password: string) {
+    /**
+     * Log in an existing user using email or username and password.
+     * @param emailOrUsername User's email or username
+     * @param password User password
+     */
+    async login(emailOrUsername: string, password: string): Promise<void> {
         try {
-            await signInWithEmailAndPassword(this.afAuth, email, password);
-            this.router.navigate(['/profile']);
+            let email = emailOrUsername;
+
+            // Check if input is a username (no '@' symbol) and fetch corresponding email
+            if (!emailOrUsername.includes('@')) {
+                const usersCollection = collection(this.firestore, 'users');
+                const q = query(usersCollection, where('username', '==', emailOrUsername));
+                const querySnapshot = await getDocs(q);
+
+                if (querySnapshot.empty) {
+                    throw new Error('No user found with that username.');
+                }
+
+                // Extract the email from Firestore
+                email = querySnapshot.docs[0].data()['email'];
+            }
+
+            // Perform login using the resolved email
+            await signInWithEmailAndPassword(this.auth, email, password);
+            console.log('Login successful!');
         } catch (error: any) {
             console.error('Login error:', error.message);
             throw error;
         }
     }
 
-    // Проверка за автентикация
+    /**
+     * Get the currently logged-in user.
+     * @returns The current user or null if not logged in
+     */
+    getCurrentUser(): User | null {
+        return this.auth.currentUser;
+    }
+
+    /**
+     * Check if the user is logged in.
+     * @returns Boolean indicating if a user is logged in
+     */
     isLoggedIn(): boolean {
-        return !!this.afAuth.currentUser;
+        return !!this.auth.currentUser;
     }
 
-    // Извличане на текущ потребител
-    getCurrentUser() {
-        return this.afAuth.currentUser;
+    /**
+     * Subscribe to authentication state changes.
+     * @param callback A callback function to handle state changes
+     */
+    onAuthStateChanged(callback: (user: User | null) => void): void {
+        this.auth.onAuthStateChanged(callback);
     }
 
-    // Потребителски данни от Firestore
-    async getUserData(uid: string) {
-        const userRef = doc(this.firestore, 'users', uid);
-        const userSnap = await getDoc(userRef);
-        return userSnap.exists() ? userSnap.data() : null;
-    }
-
-    // Изход
-    async logout() {
-        await signOut(this.afAuth);
-        this.router.navigate(['/home']);
+    /**
+     * Log out the current user.
+     */
+    async logout(): Promise<void> {
+        try {
+            await signOut(this.auth);
+            console.log('User logged out successfully.');
+        } catch (error: any) {
+            console.error('Logout error:', error.message);
+            throw error;
+        }
     }
 }

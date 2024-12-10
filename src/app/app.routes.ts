@@ -1,4 +1,6 @@
 import { Routes } from '@angular/router';
+
+// Components
 import { HomeComponent } from './home/home.component';
 import { ErrorComponent } from './error/error.component';
 import { LoginComponent } from './user/login/login.component';
@@ -8,8 +10,7 @@ import { AddGameComponent } from './games/add-game/add-game.component';
 import { MainComponent } from './main/main.component';
 import { DiscussionComponent } from './games/discussion/discussion.component';
 import { CategoriesListComponent } from './games/categories-list/categories-list.component';
-import { GameDetailComponent } from './games/game-details/game-details.component';
-import { AuthGuard } from './guards/auth.guard';
+import { GameDetailsComponent } from './games/game-details/game-details.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -18,16 +19,21 @@ export const routes: Routes = [
   // User routing
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
-  { path: 'profile', component: ProfileComponent, canActivate: [AuthGuard] },
+  { path: 'profile', component: ProfileComponent },
 
   // Games routing
+  {
+    path: 'games',
+    children: [
+      { path: '', component: MainComponent, pathMatch: 'full' }, // Default
+      { path: 'categories', component: CategoriesListComponent },
+      { path: 'add', component: AddGameComponent },
+      { path: 'details/:id', component: GameDetailsComponent }, // Fixed structure
+      { path: 'discussion/:id', component: DiscussionComponent }, // Fixed structure
+    ],
+  },
 
-  { path: 'categories', component: CategoriesListComponent },
-  { path: 'add-game', component: AddGameComponent, canActivate: [AuthGuard] },
-  { path: 'games/:gameId/details', component: GameDetailComponent },
-  { path: 'games/:gameId/comments', component: DiscussionComponent, canActivate: [AuthGuard] },
-
-
+  // Error handling
   { path: '404', component: ErrorComponent },
   { path: '**', redirectTo: '/404' },
 ];

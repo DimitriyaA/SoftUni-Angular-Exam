@@ -1,27 +1,34 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { AuthService } from '../../services/auth.service';
 import { Router, RouterLink } from '@angular/router';
-import { UserService } from '../../user/user.service';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-header',
   standalone: true,
-  imports: [RouterLink],
+  imports: [CommonModule, RouterLink],
   templateUrl: './header.component.html',
-  styleUrl: './header.component.css',
+  styleUrls: ['./header.component.css'],
 })
-export class HeaderComponent {
-  get isLoggedIn(): boolean {
-    return this.userService.isLogged;
+export class HeaderComponent implements OnInit {
+  isLoggedIn: boolean = false;
+  username: string | null = null;
+  firstName: string | null = null; // Added firstName property
+
+  constructor(private authService: AuthService, private router: Router) { }
+
+  ngOnInit() {
+    this.authService.onAuthStateChanged((user) => {
+      this.isLoggedIn = !!user;
+      this.username = user?.displayName || null;
+
+      // Extract the first name if displayName exists
+      this.firstName = this.username ? this.username.split(' ')[0] : null;
+    });
   }
 
-  get firstName(): string {
-    return this.userService.user?.firstName || '';
-  }
-
-  constructor(private userService: UserService, private router: Router) {}
-
-  logout() {
-    this.userService.logout();
-    this.router.navigate(['/home']);
+  async onLogout() {
+    await this.authService.logout();
+    this.router.navigate(['/login']);
   }
 }

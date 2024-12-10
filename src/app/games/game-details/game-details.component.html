@@ -1,45 +1,21 @@
-<h2>Game Details</h2>
+<div class="game-details">
+  <h2>Game Details</h2>
 
-<div class="game-container">
-  <div *ngIf="game; else noGame">
-    <p><strong>Title:</strong> {{ game.name }}</p>
-    <p><strong>Description:</strong> {{ game.description }}</p>
-    <p><strong>Category:</strong> {{ game.category }}</p>
-
-    <div *ngIf="authService.isLoggedIn()">
-      <button (click)="addComment()">Add Comment</button>
-    </div>
-    <p *ngIf="!authService.isLoggedIn()">Please <a routerLink="/login">log in</a> to add comments.</p>
-  </div>
-
-  <ng-template #noGame>
-    <p>Game not found. <a routerLink="/games">Back to game list</a>.</p>
-  </ng-template>
-</div>
-
-<!-- Comments Section -->
-<div class="discussion-container">
-  <h3 class="discussion-header">Discussion</h3>
-
-  <div *ngIf="comments.length > 0; else noComments">
-    <ul>
-      <li *ngFor="let comment of comments">
-        <strong>{{ comment.user }}:</strong> {{ comment.message }} ({{ comment.date }})
-      </li>
-    </ul>
-  </div>
-
-  <ng-template #noComments>
+  <!-- Comments Section -->
+  <div class="comments-section">
+    <h3>Comments</h3>
+    @if (comments.length > 0) {
+    @for (comment of comments; track $index) {
+    <p>{{ comment.text }} - {{ comment.createdAt | date: 'short' }}</p>
+    }
+    } @else {
     <p>No comments yet.</p>
-    <p *ngIf="authService.isLoggedIn()">Be the first to comment!</p>
-    <p *ngIf="!authService.isLoggedIn()">Please <a routerLink="/login">log in</a> to add comments.</p>
-  </ng-template>
-
-  <!-- Add Comment Form -->
-  <div *ngIf="authService.isLoggedIn()">
-    <input type="text" placeholder="Your name" [(ngModel)]="newComment.name" />
-    <textarea placeholder="Add a comment..." [(ngModel)]="newComment.text"></textarea>
-    <button (click)="addComment()">Post Comment</button>
+    }
+    <div class="add-comment">
+      <textarea [(ngModel)]="newComment" placeholder="Add a comment"></textarea>
+      <button (click)="addComment()" [disabled]="!newComment.trim()">
+        Add Comment
+      </button>
+    </div>
   </div>
-  <p *ngIf="!authService.isLoggedIn()">Please <a routerLink="/login">log in</a> to add a comment.</p>
 </div>

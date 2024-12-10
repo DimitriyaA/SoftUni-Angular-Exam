@@ -1,39 +1,27 @@
 <div class="container">
-  @if (loading()) {
-  <!-- Loading Indicator -->
-  <div class="profile">
+  <!-- Loading State -->
+  @if (loading) {
+  <div class="profile-loading">
     <p>Loading profile...</p>
   </div>
   } @else {
-  @if (user()) {
-  <!-- Profile Info -->
-  <div class="profile">
+  <!-- User Profile Data -->
+  @if (userData) {
+  <div class="profile-card">
     <!-- Profile Image -->
-    <img src="./profile.png" alt="default user" />
+    <img src="./assets/profile.png" alt="Profile Image" class="profile-image" />
 
-    <!-- User Info -->
-    <h3>User Info:</h3>
-    <div class="flex">
-      <p>Username:</p>
-      <p>{{ user()?.displayName || "N/A" }}</p>
+    <!-- User Information -->
+    <h2>WELCOME, {{ (userData.displayName || userData.username) | uppercase }}'S PROFILE</h2>
+    <div class="profile-details">
+      <p><strong>Email:</strong> {{ userData.email }}</p>
+      <p><strong>Member Since:</strong> {{ userData.metadata.creationTime | date: 'longDate' }}</p>
     </div>
-    <div class="flex">
-      <p>Email:</p>
-      <p>{{ user()?.email }}</p>
-    </div>
-    <div class="flex">
-      <p>Phone:</p>
-      <p>{{ user()?.phoneNumber || "N/A" }}</p>
-    </div>
-
-    <!-- Edit Button -->
-    <button class="edit-button">Edit</button>
   </div>
   } @else {
-  <!-- No User Info -->
-  <div class="profile">
-    <h3>No user is logged in.</h3>
-    <p>Please log in to view your profile information.</p>
+  <!-- Error State -->
+  <div class="profile-error">
+    <p class="error">{{ errorMessage || 'Unable to load profile data.' }}</p>
   </div>
   }
   }

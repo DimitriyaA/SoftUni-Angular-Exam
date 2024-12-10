@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { GameService } from '../../services/games.service'; // Import the GameService
+import { GameService } from '../../services/game.service'; // Import the GameService
 
 @Component({
   selector: 'app-add-game',
@@ -31,23 +31,18 @@ export class AddGameComponent {
     }
 
     const newGame = {
-      name,
-      description,
-      picture,
-      condition,
-      price: numericPrice,
-      category
+      name: 'New Game',
+      description: 'This is a new game',
+      picture: 'picture-url.jpg',
+      condition: 'New',
+      price: 50,
+      category: 'Strategy'
     };
 
     // Call the GameService to add the new game to Firestore
     this.gameService.addGame(newGame).subscribe({
-      next: () => {
-        alert('Game added successfully!');
-        this.router.navigate(['/categories']); // Navigate to the categories page after adding the game
-      },
-      error: (err) => {
-        console.error('Failed to add the game:', err);
-      }
+      next: () => console.log('Game added successfully!'),
+      error: (err) => console.error('Error adding game:', err),
     });
   }
 }

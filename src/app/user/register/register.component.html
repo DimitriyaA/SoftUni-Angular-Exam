@@ -1,22 +1,41 @@
-<form (submit)="onSubmit()">
-  <label>Username</label>
-  <input [formControl]="registerForm.controls.username" type="text" />
+<div class="container">
+  <form (submit)="onRegister(); $event.preventDefault()" class="form-register">
+    <fieldset>
+      <legend>Register</legend>
 
-  <label>Email</label>
-  <input [formControl]="registerForm.controls.email" type="email" />
+      <!-- Username -->
+      <div class="form-group">
+        <label for="username">Username:</label>
+        <input id="username" type="text" placeholder="Enter username" [(ngModel)]="username" name="username" required />
+      </div>
 
-  <label>Phone</label>
-  <input [formControl]="registerForm.controls.phone" type="text" />
+      <!-- Email -->
+      <div class="form-group">
+        <label for="email">Email:</label>
+        <input id="email" type="email" placeholder="Enter email" [(ngModel)]="email" name="email" required />
+      </div>
 
-  <label>Password</label>
-  <input [formControl]="registerForm.controls.password" type="password" />
+      <!-- Password -->
+      <div class="form-group">
+        <label for="password">Password:</label>
+        <input id="password" type="password" placeholder="Enter password" [(ngModel)]="password" name="password"
+          required />
+      </div>
 
-  <label>Confirm Password</label>
-  <input [formControl]="registerForm.controls.rePassword" type="password" />
+      <!-- Re-enter Password -->
+      <div class="form-group">
+        <label for="rePassword">Re-enter Password:</label>
+        <input id="rePassword" type="password" placeholder="Re-enter password" [(ngModel)]="rePassword"
+          name="rePassword" required />
+      </div>
 
-  @if (errorMessage) {
-  <p class="error">{{ errorMessage }}</p>
-  }
+      <!-- Submit Button -->
+      <button type="submit" class="btn-register">Register</button>
 
-  <button type="submit" [disabled]="registerForm.invalid">Register</button>
-</form>
+      <!-- Error Message -->
+      @if (errorMessage) {
+      <p class="error">{{ errorMessage }}</p>
+      }
+    </fieldset>
+  </form>
+</div>

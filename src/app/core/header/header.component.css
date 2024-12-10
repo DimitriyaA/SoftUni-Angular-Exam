@@ -1,137 +1,65 @@
-/* General Reset */
-header {
-  width: 100%;
+/* General Header Styles */
+.header {
   background-color: #4b3a60;
-  /* Background color for the header */
+  /* Match app theme */
   color: #fff;
-  /* Default text color for the header */
-  font-family: 'Poppins', sans-serif;
-  /* Font from Google Fonts */
-}
-
-/* Mini Navbar Wrap */
-.mini-navbar-wrap {
   display: flex;
   justify-content: space-between;
-  /* Space out logo and mini-navbar */
   align-items: center;
-  /* Center items vertically */
-  padding: 1em;
-  /* Add padding for spacing */
-  max-width: 1200px;
-  /* Ensure consistent width */
-  margin: 0 auto;
-  /* Center the content horizontally */
+  padding: 1em 2em;
+  font-family: 'Poppins', sans-serif;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
 /* Logo Styles */
-.logo {
-  display: flex;
-  align-items: center;
-  /* Align logo image and text vertically */
-  gap: 10px;
-  /* Add space between the logo and text */
-  font-size: 1.5em;
-  /* Larger font size for the brand */
-  font-weight: 600;
-  /* Bold text for the brand */
-}
-
-.logo img {
-  width: 40px;
-  /* Set logo size */
-  height: 40px;
-  /* Set logo size */
-}
-
-/* Mini Navbar */
-.mini-navbar ul {
-  list-style: none;
-  /* Remove bullets */
-  display: flex;
-  /* Align links horizontally */
-  gap: 1em;
-  /* Add space between links */
-}
-
-.mini-navbar ul li a {
-  color: #fff;
-  /* Highlight color for the links */
-  text-decoration: none;
-  /* Remove underline from links */
-  font-weight: 600;
-  /* Bold text */
-  transition: color 0.3s;
-  /* Smooth transition on hover */
-}
-
-.mini-navbar ul li a:hover {
-  color: #ffc107
-    /* Change on hover */
-}
-
-/* Main Navigation Bar */
-nav {
-  background-color: #4b3a60;
-  ;
-  /* Slightly darker background for the nav bar */
-  padding: 1em 0;
-  /* Vertical spacing */
-}
-
-nav ul {
-  list-style: none;
-  /* Remove bullets */
-  display: flex;
-  /* Align links horizontally */
-  justify-content: center;
-  /* Center align links in the nav bar */
-  gap: 2em;
-  /* Add space between navigation links */
-  margin: 0;
-  /* Remove default margin */
-  padding: 0;
-  /* Remove default padding */
-}
-
-nav ul li a {
-  color: #fff;
-  /* Text color for nav links */
-  text-decoration: none;
-  /* Remove underline */
-  font-weight: 600;
-  /* Bold font */
-  font-size: 1em;
-  /* Standard font size */
-  transition: color 0.3s;
-  /* Smooth transition for hover effect */
-}
-
-nav ul li a:hover {
+.header .logo {
   color: #ffc107;
-  /* Highlight color on hover */
+  font-size: 1.5em;
+  font-weight: bold;
+  text-decoration: none;
+  transition: color 0.3s;
+}
+
+.header .logo:hover {
+  color: #fff;
+}
+
+/* Navigation Menu */
+.header nav ul {
+  list-style: none;
+  display: flex;
+  gap: 1.5em;
+  margin: 0;
+  padding: 0;
+}
+
+/* Navigation Links */
+.header nav a {
+  color: #fff;
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.3s;
+}
+
+.header nav a:hover {
+  color: #ffc107;
+  /* Highlight on hover */
+}
+
+/* Active Link */
+.header nav a.active {
+  border-bottom: 2px solid #ffc107;
 }
 
 /* Responsive Design */
 @media (max-width: 768px) {
-  .mini-navbar-wrap {
+  .header {
     flex-direction: column;
-    /* Stack logo and mini-navbar */
-    align-items: center;
-    /* Center-align items */
+    align-items: flex-start;
   }
 
-  .mini-navbar ul {
+  .header nav ul {
     flex-direction: column;
-    /* Stack links vertically */
-    gap: 0.5em;
-    /* Reduce space between links */
-  }
-
-  nav ul {
-    flex-direction: column;
-    /* Stack main navigation links vertically */
     gap: 1em;
-    /* Adjust spacing */
   }
 }
