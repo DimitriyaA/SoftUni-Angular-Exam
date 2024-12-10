@@ -27,7 +27,7 @@ export class CategoriesListComponent implements OnInit {
 
   onCategorySelect(category: string): void {
     this.selectedCategory = category;
-    this.gamesToDisplay$ = this.gameService.getGamesByCategory(category);
+    this.gamesToDisplay$ = this.gameService.getGamesByCategoryObservable(category);
   }
 
   loadLatestGames(): void {

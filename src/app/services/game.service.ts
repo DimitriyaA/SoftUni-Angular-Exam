@@ -1,15 +1,16 @@
 import { Injectable } from '@angular/core';
 import { doc, collectionData, getDoc, limit, addDoc } from '@angular/fire/firestore';
-import { Observable } from 'rxjs';
+import { from, tap, Observable } from 'rxjs';
+import { Timestamp } from '@angular/fire/firestore';
 import { Firestore, collection, query, where, getDocs, orderBy } from '@angular/fire/firestore';
 
 
 export interface Game {
-    id?: string;        // Optional when creating a new game
+    id?: string;
     name: string;
     description: string;
     category: string;
-    createdAt: Date;    // Use a specific Date type for createdAt
+    createdAt: Date;
 }
 
 @Injectable({
@@ -88,5 +89,37 @@ export class GameService {
                     observer.error(error);
                 });
         });
+    }
+
+    async getGamesByCategory(category: string): Promise<Game[]> {
+        const gamesCollection = collection(this.firestore, 'games');
+        const q = query(gamesCollection, where('category', '==', category));
+
+        const snapshot = await getDocs(q);
+        console.log('Firestore Query Snapshot:', snapshot.docs);
+
+        const games: Game[] = snapshot.docs.map((doc) => {
+            const data = doc.data();
+            const createdAt = data['createdAt']
+                ? new Date((data['createdAt'] as Timestamp).toMillis())
+                : new Date();
+
+            return {
+                id: doc.id,
+                name: data['name'] || 'Unknown',
+                description: data['description'] || 'No description',
+                category: data['category'] || 'Uncategorized',
+                createdAt: createdAt,
+            } as Game;
+        });
+
+        console.log('Mapped Games:', games);
+        return games.sort((a, b) => b.createdAt.getTime() - a.createdAt.getTime());
+    }
+
+    getGamesByCategoryObservable(category: string): Observable<Game[]> {
+        return from(this.getGamesByCategory(category)).pipe(
+            tap((games) => console.log('Games fetched for category:', category, games))
+        );
     }
 }
