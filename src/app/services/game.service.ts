@@ -11,6 +11,9 @@ export interface Game {
     description: string;
     category: string;
     createdAt: Date;
+    price: number;
+    condition: 'new' | 'used-good' | 'used-fair';
+    picture: string; // URL
 }
 
 @Injectable({

@@ -28,7 +28,7 @@ export const routes: Routes = [
       { path: '', component: MainComponent, pathMatch: 'full' }, // Default
       { path: 'categories', component: CategoriesListComponent },
       { path: 'add', component: AddGameComponent },
-      { path: 'details/:id', component: GameDetailsComponent }, // Fixed structure
+      { path: 'games/details/:id', component: GameDetailsComponent },
       { path: 'discussion/:id', component: DiscussionComponent }, // Fixed structure
     ],
   },

@@ -1,20 +1,19 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, RouterModule } from '@angular/router';
+import { GameService, Game } from '../../services/game.service';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
-import { GameService } from '../../services/game.service';
 
 @Component({
   selector: 'app-game-details',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, RouterModule],
   templateUrl: './game-details.component.html',
   styleUrls: ['./game-details.component.css'],
 })
 export class GameDetailsComponent implements OnInit {
-  gameId: string | null = null;
-  comments: { text: string; createdAt: Date }[] = [];
-  newComment: string = '';
+  game: Game | null = null;
+  isLoading: boolean = true;
+  error: string | null = null;
 
   constructor(
     private route: ActivatedRoute,
@@ -22,22 +21,22 @@ export class GameDetailsComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.gameId = this.route.snapshot.paramMap.get('id');
-    this.loadComments();
+    const gameId = this.route.snapshot.paramMap.get('id'); // Четене на параметъра "id"
+    if (gameId) {
+      this.fetchGameDetails(gameId);
+    } else {
+      this.error = 'Game ID is missing.';
+      this.isLoading = false;
+    }
   }
 
-  loadComments(): void {
-    // Replace with real logic to fetch comments
-    this.comments = [
-      { text: 'Great game!', createdAt: new Date() },
-      { text: 'Loved it!', createdAt: new Date() },
-    ];
-  }
-
-  addComment(): void {
-    if (this.newComment.trim()) {
-      this.comments.push({ text: this.newComment, createdAt: new Date() });
-      this.newComment = '';
+  async fetchGameDetails(gameId: string): Promise<void> {
+    try {
+      this.game = await this.gameService.getGameById(gameId);
+      this.isLoading = false;
+    } catch (err) {
+      this.error = 'Failed to load game details.';
+      this.isLoading = false;
     }
   }
 }

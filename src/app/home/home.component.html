@@ -1,30 +1,57 @@
 <div class="container">
   <div class="container">
     <div class="welcome">
+      <!-- Hero Section -->
       <section id="hero">
         <div class="hero-text">
           <h1>Welcome to Board Games Mania</h1>
           <p>Your go-to marketplace for second-hand board games</p>
-          <a routerLink="/categories" class="cta-button">Browse Games</a>
+          <a routerLink="/games/categories" class="cta-button">Browse Games</a>
         </div>
         <img src="pexels-karolina-grabowska-4887249.jpg" alt="Board Games" class="hero-image">
       </section>
 
+      <!-- Categories Section -->
       <section id="categories" class="container">
         <div class="line"></div>
         <h2>Categories</h2>
         <div class="category-grid">
-          <!-- Категории с RouterLink -->
-          <a [routerLink]="['/categories']" [queryParams]="{ category: 'Children\'s Games' }"
-            class="category-card">Children's Games</a>
-          <a [routerLink]="['/categories']" [queryParams]="{ category: 'Card Games' }" class="category-card">Card
-            Games</a>
-          <a [routerLink]="['/categories']" [queryParams]="{ category: 'Adventure Games' }"
-            class="category-card">Adventure Games</a>
-          <a [routerLink]="['/categories']" [queryParams]="{ category: 'Family Games' }" class="category-card">Family
-            Games</a>
-          <a [routerLink]="['/categories']" [queryParams]="{ category: 'Strategy Games' }"
-            class="category-card">Strategy Games</a>
+          <!-- Individual Category Cards -->
+          <a [routerLink]="['/games/categories']" [queryParams]="{ category: 'Children\'s Games' }"
+            class="category-card">
+            <div class="category-image">
+              <img src="assets/images/children-games.jpg" alt="Children's Games">
+            </div>
+            <p>Children's Games</p>
+          </a>
+
+          <a [routerLink]="['/games/categories']" [queryParams]="{ category: 'Card Games' }" class="category-card">
+            <div class="category-image">
+              <img src="assets/images/card-games.jpg" alt="Card Games">
+            </div>
+            <p>Card Games</p>
+          </a>
+
+          <a [routerLink]="['/games/categories']" [queryParams]="{ category: 'Adventure Games' }" class="category-card">
+            <div class="category-image">
+              <img src="assets/images/adventure-games.jpg" alt="Adventure Games">
+            </div>
+            <p>Adventure Games</p>
+          </a>
+
+          <a [routerLink]="['/games/categories']" [queryParams]="{ category: 'Family Games' }" class="category-card">
+            <div class="category-image">
+              <img src="assets/images/family-games.jpg" alt="Family Games">
+            </div>
+            <p>Family Games</p>
+          </a>
+
+          <a [routerLink]="['/games/categories']" [queryParams]="{ category: 'Strategy Games' }" class="category-card">
+            <div class="category-image">
+              <img src="assets/images/strategy-games.jpg" alt="Strategy Games">
+            </div>
+            <p>Strategy Games</p>
+          </a>
         </div>
       </section>
     </div>
