@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
-import { doc, collectionData, getDoc, limit, addDoc } from '@angular/fire/firestore';
+import { DocumentReference, doc, collectionData, getDoc, limit, addDoc } from '@angular/fire/firestore';
 import { from, tap, Observable } from 'rxjs';
 import { Timestamp } from '@angular/fire/firestore';
 import { Firestore, collection, query, where, getDocs, orderBy } from '@angular/fire/firestore';
-
+import { getAuth } from '@angular/fire/auth';
 
 export interface Game {
     id?: string;
@@ -13,7 +13,8 @@ export interface Game {
     createdAt: Date;
     price: number;
     condition: 'new' | 'used-good' | 'used-fair';
-    picture: string; // URL
+    picture: string;
+    userId?: string;
 }
 
 @Injectable({
@@ -69,30 +70,31 @@ export class GameService {
      * @param category The category name.
      */
 
-
-
-
     /**
-     * Add a new game to Firestore.
-     * @param newGame The game data to be added.
-     * @returns Observable<void>
-     */
-    addGame(newGame: Partial<Game>): Observable<void> {
+       * Add a new game to Firestore.
+       * @param newGame The game data to be added.
+       * @returns Observable<DocumentReference>
+       */
+    addGame(newGame: Partial<Game>): Observable<DocumentReference> {
+        const auth = getAuth();
+        const user = auth.currentUser;
+
+        if (!user) {
+            throw new Error('User is not authenticated.');
+        }
+
         const gamesCollection = collection(this.firestore, 'games');
-        return new Observable((observer) => {
+        return from(
             addDoc(gamesCollection, {
                 ...newGame,
-                createdAt: new Date() // Automatically assign createdAt
+                userId: user.uid, // Добавяме userId от текущия потребител
+                createdAt: new Date(),
             })
-                .then(() => {
-                    observer.next();
-                    observer.complete();
-                })
-                .catch((error) => {
-                    observer.error(error);
-                });
-        });
+        ).pipe(
+            tap((ref) => console.log('Game added successfully with ID:', ref.id))
+        );
     }
+
 
     async getGamesByCategory(category: string): Promise<Game[]> {
         const gamesCollection = collection(this.firestore, 'games');
