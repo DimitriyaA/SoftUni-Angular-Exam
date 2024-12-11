@@ -15,6 +15,7 @@ import {
     getDocs,
     query,
     where,
+    limit,
 } from '@angular/fire/firestore';
 
 @Injectable({
@@ -58,21 +59,29 @@ export class AuthService {
         try {
             let email = emailOrUsername;
 
-            // Check if input is a username (no '@' symbol) and fetch corresponding email
+            // If input is a username (no '@'), fetch the corresponding email from Firestore
             if (!emailOrUsername.includes('@')) {
                 const usersCollection = collection(this.firestore, 'users');
-                const q = query(usersCollection, where('username', '==', emailOrUsername));
+                const q = query(
+                    usersCollection,
+                    where('username', '==', emailOrUsername),
+                    limit(1) // Enforce single result
+                );
+
                 const querySnapshot = await getDocs(q);
 
                 if (querySnapshot.empty) {
                     throw new Error('No user found with that username.');
                 }
 
-                // Extract the email from Firestore
-                email = querySnapshot.docs[0].data()['email'];
+                // Extract the email field
+                const userDoc = querySnapshot.docs[0];
+                email = userDoc.data()['email'];
+
+                console.log(`Fetched email for username "${emailOrUsername}": ${email}`);
             }
 
-            // Perform login using the resolved email
+            // Log in with the resolved email and password
             await signInWithEmailAndPassword(this.auth, email, password);
             console.log('Login successful!');
         } catch (error: any) {
@@ -80,15 +89,6 @@ export class AuthService {
             throw error;
         }
     }
-
-    /**
-     * Get the currently logged-in user.
-     * @returns The current user or null if not logged in
-     */
-    getCurrentUser(): User | null {
-        return this.auth.currentUser;
-    }
-
     /**
      * Check if the user is logged in.
      * @returns Boolean indicating if a user is logged in
@@ -116,5 +116,13 @@ export class AuthService {
             console.error('Logout error:', error.message);
             throw error;
         }
+    }
+
+    /**
+  * Get the currently logged-in user.
+  * @returns The current user or null if not logged in
+  */
+    getCurrentUser(): User | null {
+        return this.auth.currentUser;
     }
 }

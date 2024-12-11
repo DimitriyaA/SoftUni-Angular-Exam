@@ -13,15 +13,19 @@
 
   <!-- Main Content: Games List -->
   <div class="games-list">
-    <h3 *ngIf="!selectedCategory">Latest Games</h3>
-    <h3 *ngIf="selectedCategory">{{ selectedCategory }} Games</h3>
+    @if (!selectedCategory) {
+    <h3>Latest Games</h3>
+    } @else {
+    <h3>{{ selectedCategory }} Games</h3>
+    }
 
     <!-- Display Games -->
     <ng-container *ngIf="gamesToDisplay$ | async as games">
       @if (games.length > 0) {
       @for (game of games; track game.id) {
       <div class="game-card">
-        <img [src]="game.picture" alt="{{ game.name }}" class="game-image" />
+        <!-- Use placeholder if picture is missing -->
+        <img [src]="game.picture || 'assets/default-placeholder.jpg'" alt="{{ game.name }}" class="game-image" />
         <h4>{{ game.name }}</h4>
         <p>{{ game.description }}</p>
         <p><strong>Price:</strong> ${{ game.price }}</p>

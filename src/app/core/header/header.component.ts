@@ -23,7 +23,7 @@ export class HeaderComponent implements OnInit {
       this.username = user?.displayName || null;
 
       // Extract the first name if displayName exists
-      this.firstName = this.username ? this.username.split(' ')[0] : null;
+      this.firstName = this.username;
     });
   }
 

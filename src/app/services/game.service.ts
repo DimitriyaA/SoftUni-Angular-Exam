@@ -1,9 +1,21 @@
 import { Injectable } from '@angular/core';
-import { DocumentReference, doc, collectionData, getDoc, limit, addDoc } from '@angular/fire/firestore';
+import { DocumentReference, doc, collectionData, getDoc, deleteDoc, updateDoc, limit, addDoc } from '@angular/fire/firestore';
 import { from, tap, Observable } from 'rxjs';
 import { Timestamp } from '@angular/fire/firestore';
 import { Firestore, collection, query, where, getDocs, orderBy } from '@angular/fire/firestore';
 import { getAuth } from '@angular/fire/auth';
+
+interface GameDocument {
+    id?: string;
+    name: string;
+    description: string;
+    category: string;
+    createdAt: Timestamp;
+    price: number;
+    condition: 'new' | 'used-good' | 'used-fair';
+    picture: string;
+    userId?: string;
+}
 
 export interface Game {
     id?: string;
@@ -15,6 +27,7 @@ export interface Game {
     condition: 'new' | 'used-good' | 'used-fair';
     picture: string;
     userId?: string;
+    sold?: boolean; // Add this property to track the sold state
 }
 
 @Injectable({
@@ -47,9 +60,10 @@ export class GameService {
     async getGameById(gameId: string): Promise<Game> {
         const gameDocRef = doc(this.firestore, `games/${gameId}`);
         const gameDocSnap = await getDoc(gameDocRef);
+        const game = gameDocSnap.data() as GameDocument;
 
         if (gameDocSnap.exists()) {
-            return { id: gameId, ...gameDocSnap.data() } as Game;
+            return { id: gameId, ...game, createdAt: game.createdAt.toDate() }
         } else {
             throw new Error('Game not found.');
         }
@@ -101,10 +115,12 @@ export class GameService {
         const q = query(gamesCollection, where('category', '==', category));
 
         const snapshot = await getDocs(q);
-        console.log('Firestore Query Snapshot:', snapshot.docs);
+        console.log('Firestore Query Snapshot:', snapshot.docs); // Debug snapshot
 
         const games: Game[] = snapshot.docs.map((doc) => {
             const data = doc.data();
+            console.log('Raw Game Data:', data); // Check for the picture field
+
             const createdAt = data['createdAt']
                 ? new Date((data['createdAt'] as Timestamp).toMillis())
                 : new Date();
@@ -114,7 +130,10 @@ export class GameService {
                 name: data['name'] || 'Unknown',
                 description: data['description'] || 'No description',
                 category: data['category'] || 'Uncategorized',
+                picture: data['picture'] || null, // Ensure picture field is returned
                 createdAt: createdAt,
+                price: data['price'] || 0,
+                condition: data['condition'] || 'unknown',
             } as Game;
         });
 
@@ -124,7 +143,30 @@ export class GameService {
 
     getGamesByCategoryObservable(category: string): Observable<Game[]> {
         return from(this.getGamesByCategory(category)).pipe(
-            tap((games) => console.log('Games fetched for category:', category, games))
+            tap((games) => {
+                console.log(`Games fetched for category "${category}":`, games);
+            })
         );
+    }
+
+    async updateGameDetails(gameId: string, updatedData: Partial<Game>): Promise<void> {
+        const gameRef = doc(this.firestore, `games/${gameId}`);
+        await updateDoc(gameRef, updatedData);
+    }
+
+    /**
+   * Mark a game as sold.
+   */
+    async markGameAsSold(gameId: string): Promise<void> {
+        const gameRef = doc(this.firestore, `games/${gameId}`);
+        await updateDoc(gameRef, { sold: true });
+    }
+
+    /**
+     * Delete a game.
+     */
+    async deleteGame(gameId: string): Promise<void> {
+        const gameRef = doc(this.firestore, `games/${gameId}`);
+        await deleteDoc(gameRef);
     }
 }

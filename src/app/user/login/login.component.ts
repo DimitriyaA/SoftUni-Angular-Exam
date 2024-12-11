@@ -20,21 +20,29 @@ export class LoginComponent {
     private router: Router,
     private fb: FormBuilder
   ) {
+    // Initialize form with unified input for email or username
     this.loginForm = this.fb.group({
-      email: ['', [Validators.required, Validators.email]],
+      emailOrUsername: ['', [Validators.required]], // Accepts email or username
       password: ['', [Validators.required]],
     });
   }
 
   async onLogin() {
+    // Exit early if form is invalid
     if (this.loginForm.invalid) return;
 
-    const { email, password } = this.loginForm.value;
+    const { emailOrUsername, password } = this.loginForm.value;
+
     try {
-      await this.authService.login(email, password);
-      this.router.navigate(['/']);
+      // Use the AuthService to handle login
+      await this.authService.login(emailOrUsername, password);
+      // Redirect to the home page on successful login
+      this.router.navigate(['/home']);
     } catch (error: any) {
-      this.errorMessage = error.message;
+      // Display a user-friendly error message
+      this.errorMessage = error.message || 'An error occurred. Please try again.';
+      console.error('Login error:', error.message);
     }
+
   }
 }

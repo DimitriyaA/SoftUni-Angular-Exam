@@ -3,21 +3,34 @@
     <fieldset>
       <legend>Login</legend>
 
+      <!-- Unified input for email or username -->
       <div class="form-group">
-        <label for="email">Email:</label>
-        <input id="email" type="email" placeholder="Enter email" formControlName="email" required />
+        <label for="emailOrUsername">Email or Username:</label>
+        <input id="emailOrUsername" type="text" placeholder="Enter your email or username"
+          formControlName="emailOrUsername" required />
       </div>
 
+      <!-- Password Input -->
       <div class="form-group">
         <label for="password">Password:</label>
-        <input id="password" type="password" placeholder="Enter password" formControlName="password" required />
+        <input id="password" type="password" placeholder="Enter your password" formControlName="password" required />
       </div>
 
-      <button type="submit" class="btn-login" [disabled]="loginForm.invalid">Login</button>
+      <!-- Submit Button -->
+      <button type="submit" class="btn-login" [disabled]="loginForm.invalid">
+        Login
+      </button>
 
+      <!-- Error Message -->
       @if (errorMessage) {
       <p class="error">{{ errorMessage }}</p>
       }
+
+      <!-- Register Link -->
+      <p class="text-center">
+        Don't have an account?
+        <a routerLink="/register">Register</a>
+      </p>
     </fieldset>
   </form>
 </div>

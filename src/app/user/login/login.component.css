@@ -121,6 +121,27 @@ form.form-login .error {
   margin-top: 1em;
 }
 
+.text-center {
+  text-align: center;
+  margin-top: 1rem;
+  font-size: 1rem;
+  color: #333;
+}
+
+.register-link {
+  color: #4b3a60;
+  /* Lilac color matching theme */
+  text-decoration: none;
+  font-weight: bold;
+  transition: color 0.3s;
+}
+
+.register-link:hover {
+  color: #ffc107;
+  /* Orange color on hover */
+  text-decoration: underline;
+}
+
 /* Responsive Design */
 @media (max-width: 768px) {
   form.form-login {

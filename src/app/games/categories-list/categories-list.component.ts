@@ -26,7 +26,6 @@ export class CategoriesListComponent implements OnInit {
   }
 
   ngOnInit(): void {
-
     this.route.queryParams.subscribe((params) => {
       const category = params['category'];
       if (category && this.categories.includes(category)) {
@@ -38,6 +37,7 @@ export class CategoriesListComponent implements OnInit {
   }
 
   onCategorySelect(category: string): void {
+    console.log(`Category selected: ${category}`); // Debugging
     this.selectedCategory = category;
     this.gamesToDisplay$ = this.gameService.getGamesByCategoryObservable(category);
   }
@@ -46,7 +46,6 @@ export class CategoriesListComponent implements OnInit {
     this.selectedCategory = null;
     this.gamesToDisplay$ = this.gameService.getLatestGames();
   }
-
 
   onMoreDetails(gameId: string): void {
     this.router.navigate(['/games/details', gameId]);

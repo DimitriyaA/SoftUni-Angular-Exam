@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { GameService } from '../../services/game.service'; // Import the GameService
+import { GameService } from '../../services/game.service';
 
 @Component({
   selector: 'app-add-game',
@@ -25,24 +25,47 @@ export class AddGameComponent {
 
     const numericPrice = parseFloat(price);
 
-    if (!name || !description || !picture || !condition || !category || isNaN(numericPrice)) {
-      console.error('All fields are required, and price must be a valid number.');
+    // Validate input values
+    const allowedConditions = ['new', 'used-good', 'used-fair'] as const;
+
+    if (
+      !name ||
+      !description ||
+      !picture ||
+      !condition ||
+      !category ||
+      isNaN(numericPrice) ||
+      !allowedConditions.includes(condition as any) // Check if condition is valid
+    ) {
+      console.error(
+        'All fields are required, price must be a valid number, and condition must be one of: new, used-good, used-fair.'
+      );
       return;
     }
 
+    // Create the new game object
     const newGame = {
-      name: 'New Game',
-      description: 'This is a new game',
-      picture: 'picture-url.jpg',
-      condition: 'New',
-      price: 50,
-      category: 'Strategy'
+      name: name,
+      description: description,
+      picture: picture,
+      condition: condition as 'new' | 'used-good' | 'used-fair',
+      price: numericPrice,
+      category: category
     };
 
-    // Call the GameService to add the new game to Firestore
+    this.isLoading = true;
+
+    // Call GameService to add the new game
     this.gameService.addGame(newGame).subscribe({
-      next: () => console.log('Game added successfully!'),
-      error: (err) => console.error('Error adding game:', err),
+      next: () => {
+        console.log('Game added successfully!');
+        this.isLoading = false;
+        this.router.navigate(['/games']); // Redirect to the games page
+      },
+      error: (err) => {
+        console.error('Error adding game:', err);
+        this.isLoading = false;
+      }
     });
   }
 }

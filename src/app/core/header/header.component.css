@@ -1,31 +1,36 @@
 /* General Header Styles */
-.header {
+header {
   background-color: #4b3a60;
   /* Match app theme */
   color: #fff;
+  font-family: 'Poppins', sans-serif;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  width: 100%;
+}
+
+/* Top Mini Navbar */
+.mini-navbar-wrap {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 1em 2em;
-  font-family: 'Poppins', sans-serif;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  padding: 0.5em 2em;
+  background-color: #4b3a60;
 }
 
-/* Logo Styles */
-.header .logo {
+.mini-navbar-wrap .logo {
+  display: flex;
+  align-items: center;
   color: #ffc107;
-  font-size: 1.5em;
+  font-size: 2em;
   font-weight: bold;
-  text-decoration: none;
-  transition: color 0.3s;
 }
 
-.header .logo:hover {
-  color: #fff;
+.mini-navbar-wrap .logo img {
+  height: 100px;
+  margin-right: 10px;
 }
 
-/* Navigation Menu */
-.header nav ul {
+.mini-navbar ul {
   list-style: none;
   display: flex;
   gap: 1.5em;
@@ -33,33 +38,70 @@
   padding: 0;
 }
 
-/* Navigation Links */
-.header nav a {
+.mini-navbar a {
   color: #fff;
   text-decoration: none;
   font-weight: 500;
-  transition: color 0.3s;
+  transition: color 0.3s ease;
 }
 
-.header nav a:hover {
+.mini-navbar a:hover {
   color: #ffc107;
   /* Highlight on hover */
 }
 
-/* Active Link */
-.header nav a.active {
+/* Main Navigation Menu */
+nav {
+  display: flex;
+  justify-content: center;
+  /* Center the nav links */
+  background-color: #fff;
+  /* White background for contrast */
+  padding: 0.8em 0;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+nav ul {
+  list-style: none;
+  display: flex;
+  gap: 2em;
+  margin: 0;
+  padding: 0;
+}
+
+nav a {
+  color: #4b3a60;
+  /* Match home theme */
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 1em;
+  transition: color 0.3s ease;
+}
+
+nav a:hover {
+  color: #ffc107;
+  /* Highlight hover */
+}
+
+nav a.active {
   border-bottom: 2px solid #ffc107;
 }
 
 /* Responsive Design */
 @media (max-width: 768px) {
-  .header {
+  .mini-navbar-wrap {
     flex-direction: column;
-    align-items: flex-start;
+    align-items: center;
   }
 
-  .header nav ul {
+  .mini-navbar ul {
     flex-direction: column;
+    gap: 1em;
+  }
+
+  nav ul {
+    flex-direction: column;
+    align-items: center;
     gap: 1em;
   }
 }

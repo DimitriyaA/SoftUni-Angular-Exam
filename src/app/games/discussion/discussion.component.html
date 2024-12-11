@@ -17,12 +17,15 @@
       No comments yet. Be the first to comment!
     </div>
     }
-
-    <!-- Add Comment Form -->
+    <!-- Add Comment Form - Only visible if logged in -->
+    @if (isLoggedIn) {
     <div class="add-comment-form">
       <input type="text" placeholder="Your name" [(ngModel)]="newComment.name" />
       <textarea placeholder="Add a comment..." [(ngModel)]="newComment.text"></textarea>
       <button (click)="addComment()">Post Comment</button>
     </div>
+    } @else {
+    <p>Please log in to add a comment.</p>
+    }
   </div>
 </div>

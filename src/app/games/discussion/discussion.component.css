@@ -5,11 +5,8 @@
   padding: 20px;
   display: flex;
   justify-content: center;
-  /* Centers the content horizontally */
   align-items: flex-start;
-  /* Align items at the top */
   flex-direction: column;
-  /* Stack the elements vertically */
 }
 
 /* Form Wrapper */
@@ -25,20 +22,19 @@
   text-align: left;
   display: flex;
   flex-direction: column;
-  /* Ensure elements are stacked vertically */
   align-items: center;
-  /* Center all elements inside */
 }
 
 /* Discussion Title */
 .discussion-header {
   color: #4b3a60;
-  font-size: 1.5em;
+  font-size: 1.8em;
   font-family: 'Poppins', sans-serif;
   text-align: center;
-  /* Center the text */
   margin-bottom: 20px;
-  /* Space below the title */
+  border-bottom: 2px solid #4b3a60;
+  padding-bottom: 10px;
+  width: 100%;
 }
 
 /* Comment List */
@@ -46,6 +42,7 @@
   list-style-type: none;
   padding: 0;
   margin-bottom: 20px;
+  width: 100%;
 }
 
 .comment-list li {
@@ -53,6 +50,20 @@
   border-bottom: 1px solid #ddd;
   padding: 10px 0;
   font-size: 16px;
+  transition: background-color 0.2s ease;
+}
+
+.comment-list li:hover {
+  background-color: #f1f1f1;
+  cursor: pointer;
+}
+
+/* No Comments Message */
+.no-comments-message {
+  text-align: center;
+  color: #777;
+  font-size: 1.2em;
+  margin-top: 20px;
 }
 
 /* Add Comment Form */
@@ -60,7 +71,6 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  /* Center the form elements */
   width: 100%;
 }
 
@@ -74,12 +84,10 @@
   border-radius: 8px;
   width: 100%;
   max-width: 500px;
-  /* Limit the width to match form's maximum width */
 }
 
-/* Increase height of the textarea */
 .add-comment-form textarea {
-  height: 200px;
+  height: 150px;
 }
 
 /* Focus effect on form fields */
@@ -108,10 +116,22 @@
   transform: scale(1.05);
 }
 
-/* No Comments Message */
-.no-comments-message {
-  text-align: center;
-  color: #777;
-  font-size: 1.2em;
-  margin-top: 20px;
+/* Responsive Design */
+@media (max-width: 768px) {
+  .comment-list-wrapper {
+    padding: 15px;
+  }
+
+  .discussion-header {
+    font-size: 1.5em;
+  }
+
+  .add-comment-form input,
+  .add-comment-form textarea {
+    font-size: 14px;
+  }
+
+  .add-comment-form button {
+    font-size: 14px;
+  }
 }

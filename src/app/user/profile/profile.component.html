@@ -9,10 +9,10 @@
   @if (userData) {
   <div class="profile-card">
     <!-- Profile Image -->
-    <img src="./assets/profile.png" alt="Profile Image" class="profile-image" />
+    <img src="profile.png" alt="Profile Image" class="profile-image" />
 
     <!-- User Information -->
-    <h2>WELCOME, {{ (userData.displayName || userData.username) | uppercase }}'S PROFILE</h2>
+    <h2>WELCOME, {{ (userData.username) | uppercase }}</h2>
     <div class="profile-details">
       <p><strong>Email:</strong> {{ userData.email }}</p>
       <p><strong>Member Since:</strong> {{ userData.metadata.creationTime | date: 'longDate' }}</p>

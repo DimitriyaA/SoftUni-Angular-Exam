@@ -6,6 +6,9 @@
   } @else if (game) {
   <div class="game-details-card">
     <img [src]="game.picture" alt="{{ game.name }}" class="game-image" />
+
+    @if (!editMode) {
+    <!-- Display Mode -->
     <div class="game-info">
       <h2>{{ game.name }}</h2>
       <p><strong>Description:</strong> {{ game.description }}</p>
@@ -13,7 +16,42 @@
       <p><strong>Price:</strong> ${{ game.price }}</p>
       <p><strong>Condition:</strong> {{ game.condition | titlecase }}</p>
       <p><strong>Added on:</strong> {{ game.createdAt | date: 'medium' }}</p>
+      @if (game.sold) {
+      <p class="sold-message">Game Sold!</p>
+      }
     </div>
+    } @else {
+    <!-- Edit Mode -->
+    <form [formGroup]="editForm" (ngSubmit)="saveUpdates()">
+      <label>
+        Name:
+        <input formControlName="name" />
+      </label>
+      <label>
+        Description:
+        <textarea formControlName="description"></textarea>
+      </label>
+      <label>
+        Price:
+        <input formControlName="price" type="number" />
+      </label>
+      <label>
+        Condition:
+        <input formControlName="condition" />
+      </label>
+      <button type="submit">Save</button>
+      <button type="button" (click)="toggleEditMode()">Cancel</button>
+    </form>
+    }
+
+    <!-- Buttons -->
+    @if (currentUserId === game.userId) {
+    <button (click)="toggleEditMode()" *ngIf="!editMode">Edit</button>
+    <button (click)="deleteGame()">Delete</button>
+    }
+    @if (!game.sold && currentUserId && currentUserId !== game.userId) {
+    <button (click)="markAsSold()">Buy Game</button>
+    }
   </div>
   }
 </div>
