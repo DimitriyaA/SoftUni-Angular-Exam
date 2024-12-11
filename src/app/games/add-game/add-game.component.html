@@ -13,8 +13,7 @@
       <!-- Description -->
       <div class="new-game-description">
         <label for="gameDescription">Description <span class="red">*</span></label>
-        <textarea name="gameDescription" id="gameDescription" rows="5" class="height" #inputGameDescription
-          required></textarea>
+        <textarea name="gameDescription" id="gameDescription" rows="5" #inputGameDescription required></textarea>
       </div>
 
       <!-- Picture -->
@@ -43,7 +42,7 @@
           <option value="card">Card Games</option>
           <option value="adventure">Adventure Games</option>
           <option value="family">Family Games</option>
-          <option value="family">Strategy Games</option>
+          <option value="strategy">Strategy Games</option>
         </select>
       </div>
 
@@ -53,8 +52,8 @@
         <input type="number" name="gamePrice" id="gamePrice" step="0.01" min="0" #inputGamePrice required />
       </div>
 
-      <!-- Form Buttons -->
-      <div class="new-game-buttons">
+      <!-- Buttons -->
+      <div class="buttons-container">
         <button class="cancel" type="button">Cancel</button>
         <button class="public" type="submit"
           (click)="addGame($event, inputGameName.value, inputGameDescription.value, inputGamePicture.value, inputGameCondition.value, inputGameCategory.value, inputGamePrice.value)">

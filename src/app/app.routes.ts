@@ -25,8 +25,9 @@ export const routes: Routes = [
   {
     path: 'games',
     children: [
-      { path: '', component: MainComponent, pathMatch: 'full' }, // Default
+      { path: '', component: MainComponent, pathMatch: 'full' },
       { path: 'categories', component: CategoriesListComponent },
+      { path: 'categories/:category', component: CategoriesListComponent }, // Dynamic category route
       { path: 'add', component: AddGameComponent },
       { path: 'details/:id', component: GameDetailsComponent },
       { path: 'discussion/:gameId', component: DiscussionComponent },

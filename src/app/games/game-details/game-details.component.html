@@ -39,19 +39,28 @@
         Condition:
         <input formControlName="condition" />
       </label>
-      <button type="submit">Save</button>
-      <button type="button" (click)="toggleEditMode()">Cancel</button>
+      <label>
+        Picture:
+        <input formControlName="picture" />
+      </label>
+
+      <div class="buttons-container">
+        <button type="submit">Save</button>
+        <button type="button" (click)="toggleEditMode()">Cancel</button>
+      </div>
     </form>
     }
 
     <!-- Buttons -->
-    @if (currentUserId === game.userId) {
-    <button (click)="toggleEditMode()" *ngIf="!editMode">Edit</button>
-    <button (click)="deleteGame()">Delete</button>
-    }
-    @if (!game.sold && currentUserId && currentUserId !== game.userId) {
-    <button (click)="markAsSold()">Buy Game</button>
-    }
+    <div class="buttons-container">
+      @if (currentUserId === game.userId) {
+      <button (click)="toggleEditMode()" *ngIf="!editMode">Edit</button>
+      <button (click)="deleteGame()">Delete</button>
+      }
+      @if (!game.sold && currentUserId && currentUserId !== game.userId) {
+      <button (click)="markAsSold()">Buy Game</button>
+      }
+    </div>
   </div>
   }
 </div>

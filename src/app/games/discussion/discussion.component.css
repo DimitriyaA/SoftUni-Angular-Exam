@@ -1,137 +1,149 @@
-/* General Container */
+/* Discussion Container */
 .discussion-container {
-  background-color: #4b3a60;
-  width: 100%;
-  padding: 20px;
-  display: flex;
-  justify-content: center;
-  align-items: flex-start;
-  flex-direction: column;
-}
-
-/* Form Wrapper */
-.comment-list-wrapper {
-  background-color: #f9f9f9;
-  max-width: 600px;
-  width: 100%;
-  border: 1px solid #ccc;
-  border-radius: 8px;
-  padding: 20px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-  margin: 0 auto;
-  text-align: left;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-/* Discussion Title */
-.discussion-header {
-  color: #4b3a60;
-  font-size: 1.8em;
+  padding: 2rem;
+  background-color: #f4f4f9;
   font-family: 'Poppins', sans-serif;
+  color: #333;
+}
+
+/* Comment List Wrapper */
+.comment-list-wrapper {
+  max-width: 800px;
+  margin: 0 auto;
+  background-color: #fff;
+  border: none;
+  border-radius: 10px;
+  padding: 2rem;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+/* Discussion Header */
+.discussion-header {
   text-align: center;
-  margin-bottom: 20px;
-  border-bottom: 2px solid #4b3a60;
-  padding-bottom: 10px;
-  width: 100%;
+  color: #4b3a60;
+  font-size: 2rem;
+  margin-bottom: 1.5rem;
+  border-bottom: 2px solid #ffc107;
+  padding-bottom: 0.5rem;
 }
 
 /* Comment List */
 .comment-list {
-  list-style-type: none;
+  list-style: none;
   padding: 0;
-  margin-bottom: 20px;
-  width: 100%;
+  margin: 0;
 }
 
 .comment-list li {
-  margin: 10px 0;
-  border-bottom: 1px solid #ddd;
-  padding: 10px 0;
-  font-size: 16px;
-  transition: background-color 0.2s ease;
+  padding: 1rem;
+  border-bottom: 1px solid #e0e0e0;
+  transition: background-color 0.3s;
+}
+
+.comment-list li:last-child {
+  border-bottom: none;
 }
 
 .comment-list li:hover {
-  background-color: #f1f1f1;
-  cursor: pointer;
+  background-color: #f9f9f9;
 }
 
 /* No Comments Message */
 .no-comments-message {
   text-align: center;
-  color: #777;
-  font-size: 1.2em;
-  margin-top: 20px;
+  font-style: italic;
+  color: #999;
+  font-size: 1rem;
 }
 
 /* Add Comment Form */
 .add-comment-form {
+  margin-top: 2rem;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  width: 100%;
+  gap: 1.2rem;
 }
 
-/* Form Inputs */
 .add-comment-form input,
 .add-comment-form textarea {
-  margin-bottom: 10px;
-  padding: 10px;
-  font-size: 16px;
-  border: 1px solid #ccc;
-  border-radius: 8px;
   width: 100%;
-  max-width: 500px;
+  padding: 1rem;
+  font-size: 1rem;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
-.add-comment-form textarea {
-  height: 150px;
-}
-
-/* Focus effect on form fields */
 .add-comment-form input:focus,
 .add-comment-form textarea:focus {
   outline: none;
-  border-color: #4b3a60;
+  border-color: #ffc107;
+  box-shadow: 0 0 5px rgba(255, 193, 7, 0.5);
 }
 
 /* Submit Button */
 .add-comment-form button {
-  padding: 12px 25px;
+  align-self: flex-start;
   background-color: #4b3a60;
-  color: white;
+  color: #fff;
+  padding: 0.9rem 1.8rem;
   border: none;
-  border-radius: 50px;
-  font-size: 16px;
-  font-weight: 600;
+  border-radius: 5px;
+  font-size: 1rem;
+  font-weight: bold;
   cursor: pointer;
-  transition: background-color 0.3s, transform 0.2s ease;
-  margin-top: 10px;
+  transition: background-color 0.3s, transform 0.2s ease, box-shadow 0.2s ease;
 }
 
 .add-comment-form button:hover {
   background-color: #ffc107;
+  color: #4b3a60;
   transform: scale(1.05);
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
 }
 
 /* Responsive Design */
 @media (max-width: 768px) {
+  .discussion-container {
+    padding: 1.5rem;
+  }
+
   .comment-list-wrapper {
-    padding: 15px;
+    padding: 1.5rem;
   }
 
   .discussion-header {
-    font-size: 1.5em;
+    font-size: 1.8rem;
   }
 
   .add-comment-form input,
   .add-comment-form textarea {
-    font-size: 14px;
+    padding: 0.8rem;
   }
 
   .add-comment-form button {
-    font-size: 14px;
+    padding: 0.8rem 1.5rem;
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .discussion-container {
+    padding: 1rem;
+  }
+
+  .discussion-header {
+    font-size: 1.5rem;
+  }
+
+  .comment-list-wrapper {
+    padding: 1rem;
+  }
+
+  .add-comment-form button {
+    width: 100%;
+    text-align: center;
+    font-size: 0.9rem;
   }
 }

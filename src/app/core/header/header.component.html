@@ -10,7 +10,8 @@
         <!-- Conditional Rendering for Logged-in State -->
         @if (isLoggedIn) {
         <li>
-          <a routerLink="/profile"> {{ username }}'s Profile</a>
+          <a routerLink="profile">{{ username | uppercase }}'s Profile</a>
+
         </li>
         <li>
           <a (click)="onLogout()">Logout</a>

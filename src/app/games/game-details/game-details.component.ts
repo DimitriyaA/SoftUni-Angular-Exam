@@ -33,6 +33,7 @@ export class GameDetailsComponent implements OnInit {
       description: [''],
       price: [''],
       condition: [''],
+      picture: [''],
     });
   }
 
@@ -65,12 +66,10 @@ export class GameDetailsComponent implements OnInit {
     }
   }
 
-  // Enter or exit edit mode
   toggleEditMode(): void {
     this.editMode = !this.editMode;
   }
 
-  // Save updated game details
   async saveUpdates(): Promise<void> {
     if (!this.game?.id) return;
     try {
@@ -84,7 +83,6 @@ export class GameDetailsComponent implements OnInit {
     }
   }
 
-  // Mark game as sold
   async markAsSold(): Promise<void> {
     if (!this.game?.id) return;
     try {

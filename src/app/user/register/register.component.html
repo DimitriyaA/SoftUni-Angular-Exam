@@ -33,9 +33,7 @@
       <button type="submit" class="btn-register">Register</button>
 
       <!-- Error Message -->
-      @if (errorMessage) {
-      <p class="error">{{ errorMessage }}</p>
-      }
+      <p *ngIf="errorMessage" class="error">{{ errorMessage }}</p>
 
       <!-- Login Link -->
       <p class="text-center">

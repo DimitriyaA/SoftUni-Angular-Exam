@@ -1,39 +1,130 @@
+/* General Container */
 .game-details-container {
   display: flex;
   justify-content: center;
   align-items: center;
   padding: 2rem;
-  background-color: #f9f9f9;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #4b3a60;
+  font-family: 'Poppins', sans-serif;
+  color: #333;
 }
 
+/* Card Styling */
 .game-details-card {
   display: flex;
   flex-direction: column;
   align-items: center;
   max-width: 600px;
-  padding: 1.5rem;
+  padding: 2rem;
   background-color: #fff;
-  border: 1px solid #ddd;
-  border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  border-radius: 12px;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
   text-align: center;
+  transition: box-shadow 0.3s ease, transform 0.3s ease;
 }
 
+.game-details-card:hover {
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+  transform: translateY(-5px);
+}
+
+/* Game Image */
 .game-image {
   width: 100%;
-  max-height: 300px;
+  max-height: 280px;
   object-fit: cover;
-  border-radius: 10px;
+  border-radius: 8px;
   margin-bottom: 1.5rem;
 }
 
+/* Game Info */
 .game-info p {
-  margin: 0.5rem 0;
+  margin: 0.7rem 0;
   color: #555;
+  font-size: 1rem;
 }
 
-.error {
-  color: red;
+.game-info h2 {
+  font-size: 1.8rem;
+  color: #4b3a60;
+  margin-bottom: 0.5rem;
+}
+
+/* Sold Message */
+.sold-message {
+  color: #e74c3c;
   font-weight: bold;
+  font-size: 1.1rem;
+  margin-top: 1rem;
+}
+
+/* Buttons Container */
+.buttons-container {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+
+button {
+  background-color: #4b3a60;
+  color: #fff;
+  border: none;
+  padding: 0.7rem 1.5rem;
+  border-radius: 6px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+button:hover {
+  background-color: #ffc107;
+  color: #4b3a60;
+  transform: scale(1.05);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Error Message */
+.error {
+  color: #e74c3c;
+  font-weight: bold;
+  font-size: 1rem;
+  margin: 1rem 0;
+  text-align: center;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .buttons-container {
+    flex-direction: column;
+    gap: 0.8rem;
+  }
+
+  button {
+    width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .game-details-card {
+    padding: 1.2rem;
+  }
+
+  .game-image {
+    max-height: 180px;
+  }
+
+  .game-info p {
+    font-size: 0.9rem;
+  }
+
+  .game-info h2 {
+    font-size: 1.5rem;
+  }
+
+  button {
+    padding: 0.6rem 1.2rem;
+    font-size: 0.9rem;
+  }
 }

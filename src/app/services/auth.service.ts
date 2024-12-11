@@ -13,6 +13,7 @@ import {
     collection,
     doc,
     getDocs,
+    setDoc,
     query,
     where,
     limit,
@@ -33,17 +34,22 @@ export class AuthService {
      */
     async register(email: string, password: string, username: string): Promise<void> {
         try {
-            const userCredential: UserCredential = await createUserWithEmailAndPassword(
-                this.auth,
-                email,
-                password
-            );
+            const userCredential: UserCredential = await createUserWithEmailAndPassword(this.auth, email, password);
             const user = userCredential.user;
 
-            // Set the displayName (username) for the user in Firebase Authentication
+            // Set the displayName for the user in Firebase Authentication
             await updateProfile(user, { displayName: username });
 
-            console.log('User registered successfully with username:', username);
+            // Save user details to the 'users' collection
+            const userDocRef = doc(this.firestore, 'users', user.uid);
+            await setDoc(userDocRef, {
+                uid: user.uid,
+                email: user.email,
+                username: username,
+                createdAt: new Date()
+            });
+
+            console.log('User registered successfully and added to Firestore users collection.');
         } catch (error: any) {
             console.error('Registration error:', error.message);
             throw error;

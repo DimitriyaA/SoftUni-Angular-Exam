@@ -1,7 +1,6 @@
 /* General Header Styles */
 header {
   background-color: #4b3a60;
-  /* Match app theme */
   color: #fff;
   font-family: 'Poppins', sans-serif;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
@@ -21,12 +20,12 @@ header {
   display: flex;
   align-items: center;
   color: #ffc107;
-  font-size: 2em;
+  font-size: 1.5em;
   font-weight: bold;
 }
 
 .mini-navbar-wrap .logo img {
-  height: 100px;
+  height: 80px;
   margin-right: 10px;
 }
 
@@ -47,16 +46,13 @@ header {
 
 .mini-navbar a:hover {
   color: #ffc107;
-  /* Highlight on hover */
 }
 
 /* Main Navigation Menu */
 nav {
   display: flex;
   justify-content: center;
-  /* Center the nav links */
   background-color: #fff;
-  /* White background for contrast */
   padding: 0.8em 0;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
@@ -71,7 +67,6 @@ nav ul {
 
 nav a {
   color: #4b3a60;
-  /* Match home theme */
   text-decoration: none;
   font-weight: 600;
   font-size: 1em;
@@ -80,7 +75,6 @@ nav a {
 
 nav a:hover {
   color: #ffc107;
-  /* Highlight hover */
 }
 
 nav a.active {
@@ -88,20 +82,60 @@ nav a.active {
 }
 
 /* Responsive Design */
-@media (max-width: 768px) {
+@media (max-width: 1024px) {
   .mini-navbar-wrap {
     flex-direction: column;
-    align-items: center;
+    padding: 0.5em 1em;
+    text-align: center;
+  }
+
+  .mini-navbar ul {
+    flex-direction: row;
+    gap: 1em;
+  }
+
+  nav ul {
+    flex-direction: row;
+    gap: 1em;
+  }
+}
+
+@media (max-width: 768px) {
+  .mini-navbar-wrap .logo img {
+    height: 60px;
   }
 
   .mini-navbar ul {
     flex-direction: column;
-    gap: 1em;
+    align-items: center;
+    gap: 0.8em;
   }
 
   nav ul {
     flex-direction: column;
     align-items: center;
-    gap: 1em;
+    gap: 0.8em;
+  }
+}
+
+@media (max-width: 480px) {
+  .mini-navbar-wrap {
+    padding: 0.5em;
+  }
+
+  .mini-navbar-wrap .logo {
+    font-size: 1.2em;
+  }
+
+  .mini-navbar-wrap .logo img {
+    height: 50px;
+  }
+
+  .mini-navbar ul {
+    gap: 0.5em;
+  }
+
+  nav a {
+    font-size: 0.9em;
   }
 }

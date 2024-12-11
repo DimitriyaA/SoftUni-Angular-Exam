@@ -159,8 +159,9 @@ export class GameService {
    */
     async markGameAsSold(gameId: string): Promise<void> {
         const gameRef = doc(this.firestore, `games/${gameId}`);
-        await updateDoc(gameRef, { sold: true });
+        await updateDoc(gameRef, { sold: true }); // Only update 'sold'
     }
+
 
     /**
      * Delete a game.

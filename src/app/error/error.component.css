@@ -36,9 +36,9 @@
   font-family: "Nunito Sans", sans-serif;
   font-size: 1.6rem;
   position: absolute;
-  left: 16%;
+  left: 10%;
   top: 45%;
-  width: 75%;
+  width: 80%;
 }
 
 a {
@@ -48,4 +48,55 @@ a {
 
 a:hover {
   text-decoration: underline;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .mainbox {
+    width: 90%;
+    height: auto;
+  }
+
+  .err,
+  .err2 {
+    font-size: 8rem;
+    left: 15%;
+    top: 10%;
+  }
+
+  .far {
+    font-size: 6.5rem;
+    left: 40%;
+    top: 18%;
+  }
+
+  .msg {
+    font-size: 1.2rem;
+    top: 50%;
+    left: 5%;
+    width: 90%;
+  }
+}
+
+@media (max-width: 480px) {
+
+  .err,
+  .err2 {
+    font-size: 6rem;
+    left: 10%;
+    top: 15%;
+  }
+
+  .far {
+    font-size: 4.5rem;
+    left: 38%;
+    top: 20%;
+  }
+
+  .msg {
+    font-size: 1rem;
+    top: 55%;
+    left: 5%;
+    width: 90%;
+  }
 }
