@@ -16,6 +16,7 @@ Public Part: Browse game categories, view game details, and access authenticatio
 Private Part: Logged-in users can add, edit, and delete games, participate in discussions, and manage user-specific data like their profile and added games.
 
 2. Technologies Used
+   
 Angular (v19.0.2): For building the frontend components and routing.
 Firebase Authentication: For user registration, login, and logout functionalities.
 Firebase Firestore: For storing and managing data (games, comments, and user data).
@@ -23,7 +24,7 @@ RxJS: For reactive programming and handling asynchronous operations.
 TypeScript: For type safety and clean code structure.
 CSS: For responsive design and styling.
 
-3. Installation and Setup
+4. Installation and Setup
    
 1. Prerequisites
 Make sure you have the following tools installed on your system:
