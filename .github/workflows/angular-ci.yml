@@ -29,3 +29,4 @@ jobs:
       - name: Run tests
         run: npm run test -- --watch=false --no-progress --browsers=ChromeHeadless
         continue-on-error: true  # Ако нямаш тестове, можеш да премахнеш този блок
+
