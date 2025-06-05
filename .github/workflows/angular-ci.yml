@@ -1,0 +1,31 @@
+name: Angular CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v3
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build Angular app
+        run: npm run build
+
+      # Optional: Run tests if available
+      - name: Run tests
+        run: npm run test -- --watch=false --no-progress --browsers=ChromeHeadless
+        continue-on-error: true  # Ако нямаш тестове, можеш да премахнеш този блок
