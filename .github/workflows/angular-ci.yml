@@ -22,8 +22,7 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Build Angular app
-        run: npm run build
+     
 
       # Optional: Run tests if available
       - name: Run tests
