@@ -123,3 +123,4 @@ Authentication and Firestore Database must be enabled in the Firebase Console.
 🛡️ Secure login
 🛠️ Easy-to-use listing tools
 🔗 Smooth API connection
+   
