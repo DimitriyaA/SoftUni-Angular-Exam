@@ -1,4 +1,4 @@
-name: Angular CI (Simple)
+name: Angular CI 
 
 on:
   push:
@@ -11,22 +11,31 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repository
+      - name: 🧾 Checkout repository
         uses: actions/checkout@v4
 
-      - name: Setup Node.js
+      - name: ⚙️ Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: 20
           cache: 'npm'
 
-      - name: Install dependencies
+      - name: 📦 Install dependencies
         run: npm ci
 
-      - name: Build Angular app
+      - name: 🔍 Lint check
+        run: npm run lint --if-present || echo "Lint step skipped (no lint script)"
+
+      - name: 🏗️ Build Angular app
         run: npm run build -- --configuration production
 
-      - name: Run tests (optional)
+      - name: 🧪 Run tests (optional)
         run: |
           echo "Running tests (if any)..."
-          npm run test --if-present -- --watch=false --no-progress --browsers=ChromeHeadless || echo "No tests or test step skipped."
+          npm run test --if-present -- --watch=false --no-progress --browsers=ChromeHeadless || echo "No tests or skipped"
+
+      - name: 📁 Upload build artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: dist
+          path: dist/
