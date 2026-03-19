@@ -4,8 +4,8 @@
 
 📌 Project Overview
 
-BoardGamesMania е Single Page Application (SPA), разработен с Angular и Firebase.
-Платформата позволява купуване и продаване на втора употреба настолни игри, с възможност за разглеждане, управление и взаимодействие с обяви.
+BoardGamesMania is a Single Page Application (SPA) developed with Angular and Firebase.
+The platform allows users to buy and sell second-hand board games, with features for browsing, managing, and interacting with listings.
 
 ✨ Key Features
 
