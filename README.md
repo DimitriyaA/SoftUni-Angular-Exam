@@ -2,7 +2,7 @@
 
 ## 🌐 Live Demo
 
-https://mymagicapp-1acde.web.app/catalog
+https://mymagicapp-1acde.web.app
 ---
 
 ## 📌 Project Overview
