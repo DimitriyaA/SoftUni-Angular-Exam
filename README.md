@@ -2,7 +2,7 @@
 
 ## 🌐 Live Demo
 
-👉 [ttps://mymagicapp-1acde.web.app/](https://mymagicapp-1acde.web.app/)
+👉 [https://mymagicapp-1acde.web.app/](https://mymagicapp-1acde.web.app/)
 
 ---
 
