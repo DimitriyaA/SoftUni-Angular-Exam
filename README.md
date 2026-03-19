@@ -2,7 +2,7 @@
 
 ## 🌐 Live Demo
 
-https://mymagicapp-1acde.web.app/
+[Open here](https://mymagicapp-1acde.web.app/)
 
 ---
 
