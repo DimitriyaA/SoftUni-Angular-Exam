@@ -1,6 +1,6 @@
 {
   "hosting": {
-    "public": "dist/workshop/browser", // Папката 'browser' е тук
+    "public": "dist/workshop/browser",
     "ignore": [
       "firebase.json",
       "**/.*",

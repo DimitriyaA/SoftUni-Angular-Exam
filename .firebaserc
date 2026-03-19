@@ -1,6 +1,6 @@
 {
   "projects": {
-    "staging": "mymagicapp-1acde"
+    "default": "boardgamesmania-eefb9"
   },
   "targets": {},
   "etags": {}
