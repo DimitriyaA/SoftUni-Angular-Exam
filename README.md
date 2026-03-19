@@ -1,6 +1,6 @@
 🎲 BoardGamesMania – SoftUni Angular Exam Project
 
-🌐 Live Demo
+🌐 https://boardgamesmania-eefb9.web.app/home
 
 📌 Project Overview
 
