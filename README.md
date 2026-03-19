@@ -2,7 +2,7 @@
 
 ## 🌐 Live Demo
 
-🚀 [Open My Magic App](https://mymagicapp-1acde.web.app)
+https://mymagicapp-1acde.web.app/
 
 ---
 
