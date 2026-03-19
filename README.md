@@ -1,63 +1,108 @@
-SoftUni Angular Exam Project
-This is a Single Page Application (SPA) built with Angular and integrated with Firebase for backend services such as Authentication and Firestore Database. The application serves as a platform for second-hand board games, allowing users to manage, browse, and interact with games.
+# 🎲 SoftUni Angular Exam Project
 
-1. Table of Contents
-2. Project Overview
-3. Technologies Used
-4. Installation and Setup
-5. Application Features
-6. Folder Structure
-7. Run the Application
-   
-1. Project Overview
-The application provides the following functionality:
+## 🌐 Live Demo
 
-Public Part: Browse game categories, view game details, and access authentication forms (login/register).
-Private Part: Logged-in users can add, edit, and delete games, participate in discussions, and manage user-specific data like their profile and added games.
+👉 [https://mymagicapp-1acde.web.app](https://mymagicapp-1acde.web.app)
 
-2. Technologies Used
-   
-Angular (v19.0.2): For building the frontend components and routing.
-Firebase Authentication: For user registration, login, and logout functionalities.
-Firebase Firestore: For storing and managing data (games, comments, and user data).
-RxJS: For reactive programming and handling asynchronous operations.
-TypeScript: For type safety and clean code structure.
-CSS: For responsive design and styling.
+---
 
-4. Installation and Setup
-   
-1. Prerequisites
-Make sure you have the following tools installed on your system:
+## 📌 Project Overview
 
-Node.js (v16 or later): Download Node.js
-Angular CLI: Install it globally using the command:
-bash
+This is a **Single Page Application (SPA)** built with Angular and Firebase.
+The platform is designed for buying and selling **second-hand board games**, allowing users to browse, manage, and interact with listings.
 
-npm install -g @angular/cli
+---
 
-2. Install Dependencies
-Clone the Repository:
+## ✨ Key Features
 
-bash
+* 🔐 User authentication (Register / Login)
+* 🎮 Browse games by categories
+* 📄 View detailed game information
+* ➕ Add new game listings
+* ✏️ Edit and delete your own games
+* 💬 Comment and participate in discussions
+* 👤 User profile with personal content
 
-git clone https://github.com/DimitriyaA/SoftUni-Angular-Exam.git
-cd SoftUni-Angular-Exam
-Install Required Node Modules:
+---
 
-bash
+## 🛠️ Technologies Used
 
-npm install
+* **Angular (v19)**
+* **Firebase Authentication**
+* **Firebase Firestore**
+* **RxJS**
+* **TypeScript**
+* **CSS**
 
-3. Firebase Configuration
-Create a Firebase project in the Firebase Console.
-Enable Authentication (Email/Password) and Firestore Database.
-Replace your Firebase API keys in the environment files:
-Development: /src/environments/environment.ts
-Production: /src/environments/environment.prod.ts
+---
+
+## 📸 Screenshots
+
+> *(Add your screenshots here for better presentation)*
+
+```bash
+/screenshots
+  home.png
+  details.png
+  profile.png
+```
+
 Example:
 
-typescript
+![Home Page](./screenshots/home.png)
+![Game Details](./screenshots/details.png)
 
+---
+
+## ⚙️ Installation and Setup
+
+### 1. Prerequisites
+
+Make sure you have installed:
+
+* Node.js (v16 or later)
+* Angular CLI
+
+```bash
+npm install -g @angular/cli
+```
+
+---
+
+### 2. Clone the Repository
+
+```bash
+git clone https://github.com/DimitriyaA/SoftUni-Angular-Exam.git
+cd SoftUni-Angular-Exam
+```
+
+---
+
+### 3. Install Dependencies
+
+```bash
+npm install
+```
+
+---
+
+### 4. Firebase Configuration
+
+1. Create a project in Firebase Console
+
+2. Enable:
+
+   * Authentication (Email/Password)
+   * Firestore Database
+
+3. Add your Firebase config in:
+
+* `/src/environments/environment.ts`
+* `/src/environments/environment.prod.ts`
+
+Example:
+
+```ts
 export const environment = {
   production: false,
   firebase: {
@@ -69,58 +114,76 @@ export const environment = {
     appId: 'YOUR_APP_ID',
   },
 };
+```
 
-4. Application Features
-Public Part
-Home Page: Welcome message and featured game categories.
-Categories: Browse games grouped by categories.
-Game Details: View game details and comments.
-Authentication: Login and register forms for users.
-Private Part (Authenticated Users)
-Add Game: Add new games with details like name, description, price, and image.
-Edit/Delete Game: Edit or delete games created by the logged-in user.
-Discussions: Add comments under game details.
-User Profile: View and manage the games and comments created by the user.
+---
 
-6. Folder Structure
-The project follows a clean and modular Angular structure:
+## 🚀 Run the Application
 
-bash
+```bash
+ng serve
+```
 
+Open in browser:
+[http://localhost:4200/](http://localhost:4200/)
+
+---
+
+## 🧩 Application Structure
+
+```bash
 /src
   /app
-    /user            # Components for Login, Register, and Profile pages.
-    /core            # Layout components: Header and Footer.
+    /core            # Header & Footer
+    /user            # Login, Register, Profile
     /games
-      /categories-list   # List games by category.
-      /game-details      # Game details and comments/discussions.
-      /add-game          # Add new games.
-      /discussion        # Comments for each game.
-    /services        # Firebase services (Authentication, Firestore, etc.).
-    /types           # TypeScript interfaces for games, users, and comments.
-    /home            # Home page component.
-    /error           # 404 Page Not Found component.
-  /environments      # Environment configurations for Firebase.
-index.html           # Main HTML file.
-main.ts              # Application entry point.
+      /categories-list
+      /game-details
+      /add-game
+      /discussion
+    /services        # Firebase services
+    /types           # Interfaces
+    /home            # Home page
+    /error           # 404 page
+  /environments      # Firebase configs
+```
 
-6. Run the Application
-To start the application, follow these steps:
+---
 
-Run the Development Server:
+## 🔐 Application Features
 
-bash
+### Public Part
 
-ng serve
-Open your browser and navigate to:
-http://localhost:4200/
+* Home page with featured categories
+* Browse games by category
+* View game details and comments
+* Register and login
 
-Important Notes
-Ensure the Firebase backend is properly configured and running for full functionality.
-Authentication and Firestore Database must be enabled in the Firebase Console.
+### Private Part (Authenticated Users)
 
+* Add new games
+* Edit and delete owned games
+* Comment on games
+* View personal profile and activity
 
-🛡️ Secure login
-🛠️ Easy-to-use listing tools
-🔗 Smooth API connection
-   
+---
+
+## 🚀 Future Improvements
+
+* 📷 Image upload (Firebase Storage)
+* ❤️ Like / favorite system
+* 🔍 Search functionality
+* 📄 Pagination / lazy loading
+
+---
+
+## 📄 Notes
+
+* Firebase must be properly configured for full functionality
+* Authentication and Firestore must be enabled
+
+---
+
+## 👩‍💻 Author
+
+Created for SoftUni Angular Exam Project
